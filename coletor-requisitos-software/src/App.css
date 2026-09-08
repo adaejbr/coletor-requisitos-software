@@ -167,6 +167,29 @@ textarea {
   font-size: 0.8rem;
 }
 
+.panel-section {
+  display: grid;
+  gap: 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 18px;
+  background: #f8fafc;
+}
+
+.nested-group {
+  display: grid;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.muted-text {
+  margin: 0;
+  color: #64748b;
+}
+
 @media (max-width: 640px) {
   .app-shell {
     padding: 20px 16px;
