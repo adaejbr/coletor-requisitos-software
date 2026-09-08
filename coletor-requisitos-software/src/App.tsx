@@ -15,8 +15,10 @@ function App() {
       <Routes>
         <Route path="/" element={<ClientesPage />} />
         <Route path="/clientes/novo" element={<NovoClientePage />} />
+        <Route path="/clientes/:clienteId/editar" element={<NovoClientePage />} />
         <Route path="/clientes/:clienteId" element={<DetalhesClientePage />} />
         <Route path="/clientes/:clienteId/aplicacoes/nova" element={<NovaAplicacaoPage />} />
+        <Route path="/clientes/:clienteId/aplicacoes/:aplicacaoId/editar" element={<NovaAplicacaoPage />} />
         <Route path="/clientes/:clienteId/aplicacoes/:aplicacaoId" element={<DetalhesAplicacaoPage />} />
         <Route path="/clientes/:clienteId/aplicacoes/:aplicacaoId/funcionalidades/nova" element={<NovaFuncionalidadePage />} />
         <Route path="/clientes/:clienteId/aplicacoes/:aplicacaoId/funcionalidades/:funcionalidadeId/editar" element={<EditarFuncionalidadePage />} />

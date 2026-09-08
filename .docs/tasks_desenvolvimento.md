@@ -107,11 +107,6 @@ Com base no novo requisito, reestruturei as **tasks de desenvolvimento** para in
 - **Task 6.3.3:** Botões para "Editar" e "Voltar".
 
 ---
-Entendido! Ajustei a seção de **Exportação** para que a geração de arquivos seja feita **por aplicação**, ou seja, ao exportar, o arquivo (JSON ou PDF) conterá todos os dados da aplicação escolhida (incluindo o nome do cliente, status, etc.) e todas as funcionalidades vinculadas a ela. As exportações individuais de funcionalidade podem ser mantidas como extra, mas o foco principal agora é a exportação por aplicação.
-
-Abaixo, a **seção 7 reformulada** – as demais seções permanecem iguais ao que já descrevi anteriormente. Também ajustei os locais onde os botões de exportação devem aparecer.
-
----
 
 ## 7. Exportação (por Aplicação)
 

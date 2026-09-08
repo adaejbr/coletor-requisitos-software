@@ -18,6 +18,10 @@
   margin-bottom: 24px;
 }
 
+.toolbar {
+  margin-bottom: 20px;
+}
+
 .eyebrow {
   margin: 0 0 8px;
   text-transform: uppercase;
@@ -89,7 +93,8 @@ textarea {
 
 .primary-button,
 .secondary-button,
-.ghost-button {
+.ghost-button,
+.danger-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -117,15 +122,25 @@ textarea {
   color: #111827;
 }
 
+.danger-button {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
 .primary-button:hover,
 .secondary-button:hover,
-.ghost-button:hover {
+.ghost-button:hover,
+.danger-button:hover {
   opacity: 0.95;
 }
 
 .detail-card {
   display: grid;
   gap: 14px;
+}
+
+.detail-summary {
+  margin-bottom: 20px;
 }
 
 .detail-block {
@@ -136,6 +151,20 @@ textarea {
 .detail-block ul {
   margin: 8px 0 0;
   padding-left: 18px;
+}
+
+.empty-state {
+  background: #fff;
+  border: 1px dashed #cbd5e1;
+  border-radius: 16px;
+  padding: 20px;
+  color: #475569;
+  text-align: center;
+}
+
+.field-error {
+  color: #b91c1c;
+  font-size: 0.8rem;
 }
 
 @media (max-width: 640px) {

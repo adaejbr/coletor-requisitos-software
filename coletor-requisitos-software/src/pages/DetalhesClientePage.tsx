@@ -1,43 +1,103 @@
-import { Link, useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import { storageService } from '../services/storageService'
+import type { Cliente } from '../types'
 
 export default function DetalhesClientePage() {
   const { clienteId } = useParams()
+  const navigate = useNavigate()
+  const [cliente, setCliente] = useState<Cliente | null>(null)
+
+  useEffect(() => {
+    const carregarCliente = async () => {
+      if (!clienteId) {
+        navigate('/', { replace: true })
+        return
+      }
+
+      const dados = await storageService.buscarCliente(clienteId)
+      if (!dados) {
+        navigate('/', { replace: true })
+        return
+      }
+
+      setCliente(dados)
+    }
+
+    carregarCliente()
+  }, [clienteId, navigate])
+
+  if (!cliente) {
+    return <section className="page"><p>Carregando cliente...</p></section>
+  }
+
+  const removerAplicacao = async (aplicacaoId: string) => {
+    const confirmar = window.confirm('Deseja remover esta aplicação?')
+    if (!confirmar) return
+
+    await storageService.removerAplicacao(cliente.id, aplicacaoId)
+    const dados = await storageService.buscarCliente(cliente.id)
+    setCliente(dados)
+  }
 
   return (
     <section className="page">
       <div className="page-header">
         <div>
           <p className="eyebrow">Cliente</p>
-          <h1>Detalhes do Cliente: {clienteId}</h1>
+          <h1>{cliente.nome}</h1>
         </div>
         <div className="button-row">
-          <Link to={`/clientes/${clienteId}/aplicacoes/nova`} className="primary-button">
+          <Link to={`/clientes/${cliente.id}/aplicacoes/nova`} className="primary-button">
             Nova Aplicação
           </Link>
-          <Link to="/" className="secondary-button">
+          <Link to={`/clientes/${cliente.id}/editar`} className="secondary-button">
+            Editar Cliente
+          </Link>
+          <Link to="/" className="ghost-button">
             Voltar
           </Link>
         </div>
       </div>
 
+      <div className="info-card detail-summary">
+        <p>
+          <strong>Status:</strong> {cliente.status}
+        </p>
+        <p>
+          <strong>Última alteração:</strong>{' '}
+          {new Intl.DateTimeFormat('pt-BR', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+          }).format(new Date(cliente.dataUltimaAlteracao))}
+        </p>
+      </div>
+
       <div className="card-grid">
-        {[
-          { id: 'app-1', nome: 'Portal de Vendas' },
-          { id: 'app-2', nome: 'Painel Administrativo' },
-        ].map((app) => (
-          <article key={app.id} className="info-card">
-            <h2>{app.nome}</h2>
-            <p>Aplicação vinculada ao cliente selecionado.</p>
+        {cliente.aplicacoes.map((aplicacao) => (
+          <article key={aplicacao.id} className="info-card">
+            <h2>{aplicacao.nome}</h2>
+            <p>{aplicacao.funcionalidades.length} funcionalidade(s)</p>
             <div className="button-row">
-              <Link to={`/clientes/${clienteId}/aplicacoes/${app.id}`} className="secondary-button">
+              <Link to={`/clientes/${cliente.id}/aplicacoes/${aplicacao.id}`} className="secondary-button">
                 Ver detalhes
               </Link>
-              <button type="button" className="ghost-button">
+              <Link to={`/clientes/${cliente.id}/aplicacoes/${aplicacao.id}/editar`} className="ghost-button">
+                Editar
+              </Link>
+              <button type="button" className="danger-button" onClick={() => removerAplicacao(aplicacao.id)}>
                 Excluir
               </button>
             </div>
           </article>
         ))}
+
+        {cliente.aplicacoes.length === 0 && (
+          <div className="empty-state">
+            <p>Este cliente ainda não possui aplicações cadastradas.</p>
+          </div>
+        )}
       </div>
     </section>
   )
