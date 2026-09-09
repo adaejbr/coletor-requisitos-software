@@ -1,14 +1,16 @@
 import { NavLink, Navigate, Route, Routes } from 'react-router-dom'
 import { Breadcrumbs } from './components/Breadcrumbs'
 import HomePage from './pages/HomePage'
-import ClientesPage from './pages/ClientesPage'
-import DetalhesAplicacaoPage from './pages/DetalhesAplicacaoPage'
-import DetalhesClientePage from './pages/DetalhesClientePage'
-import EditarFuncionalidadePage from './pages/EditarFuncionalidadePage'
-import NovaAplicacaoPage from './pages/NovaAplicacaoPage'
-import NovaFuncionalidadePage from './pages/NovaFuncionalidadePage'
-import NovoClientePage from './pages/NovoClientePage'
-import VisualizarFuncionalidadePage from './pages/VisualizarFuncionalidadePage'
+import HomeTutoriaisPage from './pages/tutoriais/HomeTutoriaisPage'
+import TutorialFuncionalidadeClientesPage from './pages/tutoriais/TutorialFuncionalidadeClientesPage'
+import ClientesPage from './pages/clientes/ClientesPage'
+import DetalhesAplicacaoPage from './pages/clientes/DetalhesAplicacaoPage'
+import DetalhesClientePage from './pages/clientes/DetalhesClientePage'
+import EditarFuncionalidadePage from './pages/clientes/EditarFuncionalidadePage'
+import NovaAplicacaoPage from './pages/clientes/NovaAplicacaoPage'
+import NovaFuncionalidadePage from './pages/clientes/NovaFuncionalidadePage'
+import NovoClientePage from './pages/clientes/NovoClientePage'
+import VisualizarFuncionalidadePage from './pages/clientes/VisualizarFuncionalidadePage'
 import './App.css'
 
 function App() {
@@ -30,12 +32,17 @@ function App() {
           <NavLink to="/clientes" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
             Clientes
           </NavLink>
+          <NavLink to="/tutoriais" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
+            Tutoriais
+          </NavLink>
         </nav>
       </header>
 
       <Breadcrumbs />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/tutoriais" element={<HomeTutoriaisPage />} />
+        <Route path="/tutoriais/funcionalidade-clientes" element={<TutorialFuncionalidadeClientesPage />} />
 
         <Route path="/clientes">
           <Route path="" element={<ClientesPage />} />

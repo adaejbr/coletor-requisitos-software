@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { storageService } from '../services/storageService'
-import type { Cliente } from '../types'
+import { storageService } from '../../services/storageService'
+import type { Cliente } from '../../types'
 
 export default function DetalhesClientePage() {
   const { clienteId } = useParams()

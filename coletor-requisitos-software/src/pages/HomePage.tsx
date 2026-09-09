@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { CardHome } from '../components/CardHome'
 
 export default function HomePage() {
   return (
@@ -9,16 +9,20 @@ export default function HomePage() {
       </div>
 
       <div className="hub-grid">
-        <article className="info-card home-card">
-          <div className="home-card-icon">👥</div>
-          <div>
-            <h2>Clientes</h2>
-            <p>Gerencie clientes, aplicações e requisitos do projeto.</p>
-          </div>
-          <Link to="/clientes" className="primary-button home-link">
-            Acessar
-          </Link>
-        </article>
+        <CardHome 
+          icon="👥" 
+          title="Clientes" 
+          description="Gerencie clientes, aplicações e requisitos do projeto." 
+          linkTo="/clientes" 
+          linkText="Acessar" 
+        />
+        <CardHome 
+          icon="📘" 
+          title="Tutoriais" 
+          description="Veja o hub com todos os tutoriais e guias de uso da plataforma." 
+          linkTo="/tutoriais" 
+          linkText="Abrir hub" 
+        />
       </div>
     </section>
   )

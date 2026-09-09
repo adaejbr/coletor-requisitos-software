@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { useToast } from '../components/ToastProvider'
-import { exportarAplicacaoJson, exportarAplicacaoPdf } from '../services/exportService'
-import { storageService } from '../services/storageService'
-import type { Aplicacao } from '../types'
+import { useToast } from '../../components/ToastProvider'
+import { exportarAplicacaoJson, exportarAplicacaoPdf } from '../../services/exportService'
+import { storageService } from '../../services/storageService'
+import type { Aplicacao } from '../../types'
 
 export default function DetalhesAplicacaoPage() {
   const { clienteId, aplicacaoId } = useParams()

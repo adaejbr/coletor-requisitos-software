@@ -1,75 +1,93 @@
-# React + TypeScript + Vite
+# Coletor de Requisitos de Software
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicação em React + TypeScript para registrar clientes, aplicações e funcionalidades de requisitos de software em um fluxo hierárquico: Cliente → Aplicação → Funcionalidade.
 
-Currently, two official plugins are available:
+## Visão geral
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+O sistema permite:
+- cadastrar e gerenciar clientes
+- organizar aplicações dentro de cada cliente
+- registrar funcionalidades com usuários, entidades e pontos importantes
+- exportar dados em JSON e PDF por aplicação
+- manter histórico de última alteração por cliente
 
-## React Compiler
+## Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React
+- TypeScript
+- Vite
+- React Router
+- React Hook Form + Zod
+- localForage
+- @react-pdf/renderer
 
-## Expanding the ESLint configuration
+## Requisitos
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Node.js 18+
+- npm ou pnpm
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Instalação
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+## Execução local
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm run dev
 ```
+
+A aplicação fica disponível em:
+
+```text
+http://localhost:5173
+```
+
+## Build de produção
+
+```bash
+npm run build
+```
+
+O artefato final será gerado na pasta `dist`.
+
+## Fluxo principal da aplicação
+
+1. Acesse a home para entrar no hub.
+2. Vá para Clientes.
+3. Crie um cliente.
+4. Dentro do cliente, cadastre aplicações.
+5. Dentro da aplicação, cadastre funcionalidades.
+6. Exporte a aplicação em JSON ou PDF quando necessário.
+
+## Estrutura de pastas
+
+```text
+src/
+  components/
+  pages/
+  services/
+  types/
+  utils/
+```
+
+## Observações
+
+- Os dados ficam persistidos localmente no navegador com localForage.
+- A data de última alteração do cliente é atualizada ao alterar qualquer nível da hierarquia.
+- O projeto foi pensado para uso desktop, com layout ampliado e navegação clara.
+
+## Deploy
+
+Para disponibilizar em produção, é possível:
+- publicar na Vercel com build padrão do Vite
+- publicar na Netlify a partir do diretório `dist`
+- empacotar o conteúdo da pasta `dist` para entrega interna
+
+Comando de preview local:
+
+```bash
+npm run preview
+```
+

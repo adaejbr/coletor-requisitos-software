@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { storageService } from '../services/storageService'
-import type { Funcionalidade } from '../types'
+import { storageService } from '../../services/storageService'
+import type { Funcionalidade } from '../../types'
 
 export default function VisualizarFuncionalidadePage() {
   const { clienteId, aplicacaoId, funcionalidadeId } = useParams()

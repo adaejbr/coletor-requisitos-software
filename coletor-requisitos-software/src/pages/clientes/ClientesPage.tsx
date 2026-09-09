@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useToast } from '../components/ToastProvider'
-import { storageService } from '../services/storageService'
-import type { Cliente } from '../types'
+import { useToast } from '../../components/ToastProvider'
+import { storageService } from '../../services/storageService'
+import type { Cliente } from '../../types'
 
 const formatarData = (data: Date) =>
   new Intl.DateTimeFormat('pt-BR', {

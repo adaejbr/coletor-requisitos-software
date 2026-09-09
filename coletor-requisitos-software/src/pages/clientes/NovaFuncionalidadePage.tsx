@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { z } from 'zod'
-import { storageService } from '../services/storageService'
+import { storageService } from '../../services/storageService'
 
 const usuarioSchema = z.object({
   nome: z.string().trim().min(1, 'O nome do usuário é obrigatório.'),

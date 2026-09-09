@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { z } from 'zod'
-import { useToast } from '../components/ToastProvider'
-import { storageService } from '../services/storageService'
+import { useToast } from '../../components/ToastProvider'
+import { storageService } from '../../services/storageService'
 
 const schema = z.object({
   nome: z.string().trim().min(1, 'O nome da aplicação é obrigatório.'),
