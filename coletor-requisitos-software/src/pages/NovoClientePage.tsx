@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { z } from 'zod'
+import { useToast } from '../components/ToastProvider'
 import { storageService } from '../services/storageService'
 import { CLIENTE_STATUS } from '../types'
 
@@ -16,6 +17,7 @@ type FormValues = z.infer<typeof schema>
 export default function NovoClientePage() {
   const navigate = useNavigate()
   const { clienteId } = useParams()
+  const { showToast } = useToast()
   const isEditMode = Boolean(clienteId)
   const [isLoading, setIsLoading] = useState(isEditMode)
 
@@ -52,31 +54,38 @@ export default function NovoClientePage() {
   }, [clienteId, form, navigate])
 
   const onSubmit = async (values: FormValues) => {
-    if (isEditMode && clienteId) {
-      const cliente = await storageService.buscarCliente(clienteId)
-      if (!cliente) {
-        navigate('/', { replace: true })
-        return
+    try {
+      if (isEditMode && clienteId) {
+        const cliente = await storageService.buscarCliente(clienteId)
+        if (!cliente) {
+          navigate('/', { replace: true })
+          return
+        }
+
+        await storageService.atualizarCliente(clienteId, {
+          nome: values.nome.trim(),
+          status: values.status,
+          dataUltimaAlteracao: new Date(),
+        })
+        showToast('Cliente atualizado com sucesso.')
+      } else {
+        const novoCliente = {
+          id: crypto.randomUUID(),
+          nome: values.nome.trim(),
+          status: values.status,
+          dataUltimaAlteracao: new Date(),
+          aplicacoes: [],
+        }
+
+        await storageService.adicionarCliente(novoCliente)
+        showToast('Cliente salvo com sucesso.')
       }
 
-      await storageService.atualizarCliente(clienteId, {
-        nome: values.nome.trim(),
-        status: values.status,
-        dataUltimaAlteracao: new Date(),
-      })
-    } else {
-      const novoCliente = {
-        id: crypto.randomUUID(),
-        nome: values.nome.trim(),
-        status: values.status,
-        dataUltimaAlteracao: new Date(),
-        aplicacoes: [],
-      }
-
-      await storageService.adicionarCliente(novoCliente)
+      navigate('/')
+    } catch (error) {
+      console.error(error)
+      showToast('Não foi possível salvar o cliente.')
     }
-
-    navigate('/')
   }
 
   return (

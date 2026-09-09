@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useToast } from '../components/ToastProvider'
 import { exportarAplicacaoJson, exportarAplicacaoPdf } from '../services/exportService'
 import { storageService } from '../services/storageService'
 import type { Aplicacao } from '../types'
@@ -7,8 +8,8 @@ import type { Aplicacao } from '../types'
 export default function DetalhesAplicacaoPage() {
   const { clienteId, aplicacaoId } = useParams()
   const navigate = useNavigate()
+  const { showToast } = useToast()
   const [aplicacao, setAplicacao] = useState<Aplicacao | null>(null)
-  const [toast, setToast] = useState<string | null>(null)
 
   useEffect(() => {
     const carregarAplicacao = async () => {
@@ -29,31 +30,20 @@ export default function DetalhesAplicacaoPage() {
     carregarAplicacao()
   }, [aplicacaoId, clienteId, navigate])
 
-  useEffect(() => {
-    if (!toast) return
-
-    const timer = window.setTimeout(() => setToast(null), 2600)
-    return () => window.clearTimeout(timer)
-  }, [toast])
-
   if (!aplicacao) {
     return <section className="page"><p>Carregando aplicação...</p></section>
-  }
-
-  const mostrarToast = (mensagem: string) => {
-    setToast(mensagem)
   }
 
   const handleExportJson = async () => {
     if (!clienteId || !aplicacaoId) return
 
     try {
-      mostrarToast('Gerando arquivo JSON...')
+      showToast('Gerando arquivo JSON...')
       await exportarAplicacaoJson(clienteId, aplicacaoId)
-      mostrarToast('Download do JSON iniciado.')
+      showToast('Download do JSON iniciado.')
     } catch (error) {
       console.error(error)
-      mostrarToast('Não foi possível exportar o JSON.')
+      showToast('Não foi possível exportar o JSON.')
     }
   }
 
@@ -61,12 +51,12 @@ export default function DetalhesAplicacaoPage() {
     if (!clienteId || !aplicacaoId) return
 
     try {
-      mostrarToast('Gerando PDF...')
+      showToast('Gerando PDF...')
       await exportarAplicacaoPdf(clienteId, aplicacaoId)
-      mostrarToast('Download do PDF iniciado.')
+      showToast('Download do PDF iniciado.')
     } catch (error) {
       console.error(error)
-      mostrarToast('Não foi possível exportar o PDF.')
+      showToast('Não foi possível exportar o PDF.')
     }
   }
 
@@ -74,9 +64,15 @@ export default function DetalhesAplicacaoPage() {
     const confirmar = window.confirm('Deseja remover esta funcionalidade?')
     if (!confirmar) return
 
-    await storageService.removerFuncionalidade(clienteId!, aplicacaoId!, funcionalidadeId)
-    const dados = await storageService.buscarAplicacao(clienteId!, aplicacaoId!)
-    setAplicacao(dados)
+    try {
+      await storageService.removerFuncionalidade(clienteId!, aplicacaoId!, funcionalidadeId)
+      const dados = await storageService.buscarAplicacao(clienteId!, aplicacaoId!)
+      setAplicacao(dados)
+      showToast('Funcionalidade removida com sucesso.')
+    } catch (error) {
+      console.error(error)
+      showToast('Não foi possível remover a funcionalidade.')
+    }
   }
 
   return (
@@ -101,8 +97,6 @@ export default function DetalhesAplicacaoPage() {
           </Link>
         </div>
       </div>
-
-      {toast && <div className="toast">{toast}</div>}
 
       <div className="card-grid">
         {aplicacao.funcionalidades.map((funcionalidade) => (

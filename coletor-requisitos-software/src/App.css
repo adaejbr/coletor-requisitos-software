@@ -1,12 +1,77 @@
 .app-shell {
   min-height: 100vh;
-  padding: 32px;
-  background: #f5f7fb;
-  color: #1f2937;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 24px 28px 48px;
+  color: var(--text);
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto 18px;
+  padding: 16px 20px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 16px 30px var(--shadow);
+}
+
+.brand-block {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--primary), #7c3aed);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.brand-label {
+  font-size: 0.74rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.topnav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--text-soft);
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  background: var(--primary-soft);
+  color: var(--primary-strong);
 }
 
 .page {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -55,6 +120,42 @@ h3 {
   border-radius: 16px;
   padding: 20px;
   box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+}
+
+.home-page {
+  display: grid;
+  gap: 24px;
+}
+
+.home-header {
+  display: grid;
+  gap: 8px;
+}
+
+.hub-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.home-card {
+  display: grid;
+  gap: 18px;
+  align-content: start;
+}
+
+.home-card-icon {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: #eef2ff;
+  font-size: 1.8rem;
+}
+
+.home-link {
+  width: fit-content;
 }
 
 .form-card {
@@ -164,6 +265,42 @@ textarea {
   padding: 20px;
   color: #475569;
   text-align: center;
+}
+
+.breadcrumb-bar {
+  max-width: 1100px;
+  margin: 0 auto 20px;
+}
+
+.breadcrumb-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  color: #475569;
+}
+
+.breadcrumb-item {
+  display: inline-flex;
+  align-items: center;
+}
+
+.breadcrumb-link,
+.breadcrumb-current {
+  font-size: 0.9rem;
+}
+
+.breadcrumb-link {
+  color: #4f46e5;
+  text-decoration: none;
+}
+
+.breadcrumb-separator {
+  margin-left: 8px;
+  color: #94a3b8;
 }
 
 .toast {

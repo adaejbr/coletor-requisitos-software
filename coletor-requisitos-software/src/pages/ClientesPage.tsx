@@ -1,7 +1,9 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import type { Cliente } from '../types'
+import { useToast } from '../components/ToastProvider'
 import { storageService } from '../services/storageService'
+import type { Cliente } from '../types'
 
 const formatarData = (data: Date) =>
   new Intl.DateTimeFormat('pt-BR', {
@@ -11,6 +13,7 @@ const formatarData = (data: Date) =>
   }).format(new Date(data))
 
 export default function ClientesPage() {
+  const { showToast } = useToast()
   const [clientes, setClientes] = useState<Cliente[]>([])
   const [filtro, setFiltro] = useState('')
 
@@ -31,8 +34,14 @@ export default function ClientesPage() {
     const confirmar = window.confirm('Deseja realmente excluir este cliente?')
     if (!confirmar) return
 
-    await storageService.removerCliente(clienteId)
-    carregarClientes()
+    try {
+      await storageService.removerCliente(clienteId)
+      await carregarClientes()
+      showToast('Cliente removido com sucesso.')
+    } catch (error) {
+      console.error(error)
+      showToast('Não foi possível excluir o cliente.')
+    }
   }
 
   return (

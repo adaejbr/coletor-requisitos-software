@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { z } from 'zod'
+import { useToast } from '../components/ToastProvider'
 import { storageService } from '../services/storageService'
 
 const schema = z.object({
@@ -14,6 +15,7 @@ type FormValues = z.infer<typeof schema>
 export default function NovaAplicacaoPage() {
   const { clienteId, aplicacaoId } = useParams()
   const navigate = useNavigate()
+  const { showToast } = useToast()
   const isEditMode = Boolean(aplicacaoId)
   const [isLoading, setIsLoading] = useState(isEditMode)
 
@@ -50,19 +52,26 @@ export default function NovaAplicacaoPage() {
       return
     }
 
-    if (isEditMode && aplicacaoId) {
-      await storageService.atualizarAplicacao(clienteId, aplicacaoId, {
-        nome: values.nome.trim(),
-      })
-    } else {
-      await storageService.adicionarAplicacao(clienteId, {
-        id: crypto.randomUUID(),
-        nome: values.nome.trim(),
-        funcionalidades: [],
-      })
-    }
+    try {
+      if (isEditMode && aplicacaoId) {
+        await storageService.atualizarAplicacao(clienteId, aplicacaoId, {
+          nome: values.nome.trim(),
+        })
+        showToast('Aplicação atualizada com sucesso.')
+      } else {
+        await storageService.adicionarAplicacao(clienteId, {
+          id: crypto.randomUUID(),
+          nome: values.nome.trim(),
+          funcionalidades: [],
+        })
+        showToast('Aplicação salva com sucesso.')
+      }
 
-    navigate(`/clientes/${clienteId}`)
+      navigate(`/clientes/${clienteId}`)
+    } catch (error) {
+      console.error(error)
+      showToast('Não foi possível salvar a aplicação.')
+    }
   }
 
   return (
