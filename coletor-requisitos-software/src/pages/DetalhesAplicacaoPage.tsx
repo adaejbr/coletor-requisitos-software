@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
+import { exportarAplicacaoJson, exportarAplicacaoPdf } from '../services/exportService'
 import { storageService } from '../services/storageService'
 import type { Aplicacao } from '../types'
 
@@ -7,6 +8,7 @@ export default function DetalhesAplicacaoPage() {
   const { clienteId, aplicacaoId } = useParams()
   const navigate = useNavigate()
   const [aplicacao, setAplicacao] = useState<Aplicacao | null>(null)
+  const [toast, setToast] = useState<string | null>(null)
 
   useEffect(() => {
     const carregarAplicacao = async () => {
@@ -27,8 +29,45 @@ export default function DetalhesAplicacaoPage() {
     carregarAplicacao()
   }, [aplicacaoId, clienteId, navigate])
 
+  useEffect(() => {
+    if (!toast) return
+
+    const timer = window.setTimeout(() => setToast(null), 2600)
+    return () => window.clearTimeout(timer)
+  }, [toast])
+
   if (!aplicacao) {
     return <section className="page"><p>Carregando aplicação...</p></section>
+  }
+
+  const mostrarToast = (mensagem: string) => {
+    setToast(mensagem)
+  }
+
+  const handleExportJson = async () => {
+    if (!clienteId || !aplicacaoId) return
+
+    try {
+      mostrarToast('Gerando arquivo JSON...')
+      await exportarAplicacaoJson(clienteId, aplicacaoId)
+      mostrarToast('Download do JSON iniciado.')
+    } catch (error) {
+      console.error(error)
+      mostrarToast('Não foi possível exportar o JSON.')
+    }
+  }
+
+  const handleExportPdf = async () => {
+    if (!clienteId || !aplicacaoId) return
+
+    try {
+      mostrarToast('Gerando PDF...')
+      await exportarAplicacaoPdf(clienteId, aplicacaoId)
+      mostrarToast('Download do PDF iniciado.')
+    } catch (error) {
+      console.error(error)
+      mostrarToast('Não foi possível exportar o PDF.')
+    }
   }
 
   const removerFuncionalidade = async (funcionalidadeId: string) => {
@@ -47,7 +86,13 @@ export default function DetalhesAplicacaoPage() {
           <p className="eyebrow">Aplicação</p>
           <h1>{aplicacao.nome}</h1>
         </div>
-        <div className="button-row">
+        <div className="button-row export-actions">
+          <button type="button" className="secondary-button" onClick={handleExportJson}>
+            Exportar JSON
+          </button>
+          <button type="button" className="ghost-button" onClick={handleExportPdf}>
+            Exportar PDF
+          </button>
           <Link to={`/clientes/${clienteId}/aplicacoes/${aplicacaoId}/funcionalidades/nova`} className="primary-button">
             Nova Funcionalidade
           </Link>
@@ -56,6 +101,8 @@ export default function DetalhesAplicacaoPage() {
           </Link>
         </div>
       </div>
+
+      {toast && <div className="toast">{toast}</div>}
 
       <div className="card-grid">
         {aplicacao.funcionalidades.map((funcionalidade) => (
