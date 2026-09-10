@@ -9,10 +9,17 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   className?: string
 }
 
-export function Button({ children, variant = 'primary', className = '', ...props }: ButtonProps) {
+export function Button({
+  children,
+  variant = 'primary',
+  className = '',
+  type = 'button',
+  ...props
+}: ButtonProps) {
   return (
-    <button onClick={props.onClick}
+    <button
       {...props}
+      type={type}
       className={['button', `button--${variant}`, className].filter(Boolean).join(' ')}
     >
       {children}
