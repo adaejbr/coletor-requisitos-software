@@ -3,9 +3,10 @@ import { useEffect, useRef, useState } from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { z } from 'zod'
-import { FormCard } from '../../components/cards'
-import { storageService } from '../../services/storageService'
-import type { Funcionalidade } from '../../types'
+import { FormCard } from '@/components/cards'
+import { storageService } from '@/services/storageService'
+import type { Funcionalidade } from '@/types'
+import './ControleFuncionalidadePage.css'
 
 const usuarioSchema = z.object({
   nome: z.string().trim().min(1, 'O nome do usuário é obrigatório.'),

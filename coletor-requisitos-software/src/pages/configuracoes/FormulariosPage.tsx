@@ -1,9 +1,9 @@
 import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
-import { BasicCard } from '../../components/cards'
-import { Table, type TableColumn } from '../../components/table/Table'
-import { useBriefingForms } from '../../hooks/useBriefingForms'
-import type { FormularioBriefing } from '../../types/briefing'
+import { BasicCard } from '@/components/cards'
+import { Table, type TableColumn } from '@/components/table/Table'
+import { useBriefingForms } from '@/hooks/useBriefingForms'
+import type { FormularioBriefing } from '@/types/briefing'
 
 const formatarData = (iso: string) =>
   new Intl.DateTimeFormat('pt-BR', {

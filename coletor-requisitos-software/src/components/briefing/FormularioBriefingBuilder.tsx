@@ -3,8 +3,9 @@ import { useEffect, useMemo, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { Button } from '../buttons'
 import { FormCard } from '../cards'
-import type { FormularioBriefing, PerguntaBriefing, SecaoBriefing } from '../../types/briefing'
-import { validarConfiguracaoFormularioBriefing } from '../../utils/validators'
+import type { FormularioBriefing, PerguntaBriefing, SecaoBriefing } from '@/types/briefing'
+import { validarConfiguracaoFormularioBriefing } from '@/utils/validators'
+import './Briefing.css'
 import { SecaoBriefingBuilder } from './SecaoBriefingBuilder'
 
 type FormularioBriefingBuilderProps = {

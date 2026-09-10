@@ -1,4 +1,4 @@
-import type { Entidade } from "../../../types";
+import type { Entidade } from "@/types";
 import './CardEntity.css';
 
 export function CardEntity( { entidade, getNomeEntidadeRelacionada }: { entidade: Entidade, getNomeEntidadeRelacionada: (entidadeId?: string, nome?: string) => string } ) {

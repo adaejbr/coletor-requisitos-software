@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom'
+import './TutorialFuncionalidadeClientesPage.css'
+import { ButtonLink } from '@/components/buttons'
 
 const sections = [
   { id: 'visao-geral', label: 'Visão geral' },
@@ -24,9 +25,9 @@ export default function TutorialFuncionalidadeClientesPage() {
           <p className="eyebrow">Documentação</p>
           <h1>Tutorial de utilização</h1>
         </div>
-        <Link to="/" className="secondary-button">
+        <ButtonLink to="/" variant="secondary">
           Voltar para o início
-        </Link>
+        </ButtonLink>
       </div>
 
       <div className="docs-layout">

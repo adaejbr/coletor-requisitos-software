@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid'
-import { FormularioBriefingBuilder } from '../../components/briefing/FormularioBriefingBuilder'
-import { useBriefingForms } from '../../hooks/useBriefingForms'
-import type { FormularioBriefing } from '../../types/briefing'
+import { FormularioBriefingBuilder } from '@/components/briefing/FormularioBriefingBuilder'
+import { useBriefingForms } from '@/hooks/useBriefingForms'
+import type { FormularioBriefing } from '@/types/briefing'
 
 const criarFormularioPadrao = (): FormularioBriefing => ({
   id: uuidv4(),

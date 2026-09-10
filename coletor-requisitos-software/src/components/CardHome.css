@@ -1,0 +1,19 @@
+.home-card {
+  display: grid;
+  gap: 18px;
+  align-content: start;
+}
+
+.home-card-icon {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: #eef2ff;
+  font-size: 1.8rem;
+}
+
+.home-link {
+  width: fit-content;
+}

@@ -1,5 +1,5 @@
 import { Button } from '../buttons'
-import type { SecaoBriefing } from '../../types/briefing'
+import type { SecaoBriefing } from '@/types/briefing'
 import { PerguntaBriefingBuilder } from './PerguntaBriefingBuilder'
 
 type SecaoBriefingBuilderProps = {

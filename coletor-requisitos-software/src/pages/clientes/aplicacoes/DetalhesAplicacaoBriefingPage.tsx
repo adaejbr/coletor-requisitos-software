@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { FormularioBriefingRenderer } from '../../components/briefing/FormularioBriefingRenderer'
-import { useBriefingForms } from '../../hooks/useBriefingForms'
-import { useBriefingResponses } from '../../hooks/useBriefingResponses'
-import type { FormularioBriefing, RespostaBriefing } from '../../types/briefing'
+import { FormularioBriefingRenderer } from '@/components/briefing/FormularioBriefingRenderer'
+import { useBriefingForms } from '@/hooks/useBriefingForms'
+import { useBriefingResponses } from '@/hooks/useBriefingResponses'
+import type { FormularioBriefing, RespostaBriefing } from '@/types/briefing'
 
 export default function DetalhesAplicacaoBriefingPage() {
   const { clienteId, aplicacaoId } = useParams()

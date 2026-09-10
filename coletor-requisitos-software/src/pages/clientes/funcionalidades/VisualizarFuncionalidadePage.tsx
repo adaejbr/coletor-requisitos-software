@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { CardEntity } from '../../components/cards/card-entity/CardEntity'
-import { DetailCard } from '../../components/cards'
-import { storageService } from '../../services/storageService'
-import type { Funcionalidade } from '../../types'
+import { CardEntity } from '@/components/cards/card-entity/CardEntity'
+import { DetailCard } from '@/components/cards'
+import { storageService } from '@/services/storageService'
+import type { Funcionalidade } from '@/types'
 
 export default function VisualizarFuncionalidadePage() {
   const { clienteId, aplicacaoId, funcionalidadeId } = useParams()

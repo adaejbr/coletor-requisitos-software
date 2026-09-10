@@ -1,4 +1,5 @@
 import { CardHome } from '../components/CardHome'
+import './HomePage.css'
 
 export default function HomePage() {
   return (

@@ -1,4 +1,4 @@
-import type { PerguntaBriefing } from '../../types/briefing'
+import type { PerguntaBriefing } from '@/types/briefing'
 
 type PerguntaBriefingRendererProps = {
   pergunta: PerguntaBriefing

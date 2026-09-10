@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
-import { BasicCard } from '../../components/cards'
-import { storageService } from '../../services/storageService'
-import type { Cliente } from '../../types'
+import { useNavigate, useParams } from 'react-router-dom'
+import { BasicCard } from '@/components/cards'
+import { storageService } from '@/services/storageService'
+import type { Cliente } from '@/types'
+import { Button, ButtonLink } from '@/components/buttons'
 
 export default function DetalhesClientePage() {
   const { clienteId } = useParams()
@@ -49,15 +50,15 @@ export default function DetalhesClientePage() {
           <h1>{cliente.nome}</h1>
         </div>
         <div className="button-row">
-          <Link to={`/clientes/${cliente.id}/aplicacoes/nova`} className="primary-button">
+          <ButtonLink to={`/clientes/${cliente.id}/aplicacoes/nova`} variant="primary">
             Nova Aplicação
-          </Link>
-          <Link to={`/clientes/${cliente.id}/editar`} className="secondary-button">
+          </ButtonLink>
+          <ButtonLink to={`/clientes/${cliente.id}/editar`} variant="secondary">
             Editar Cliente
-          </Link>
-          <Link to="/" className="ghost-button">
+          </ButtonLink>
+          <ButtonLink to="/" variant="ghost">
             Voltar
-          </Link>
+          </ButtonLink>
         </div>
       </div>
 
@@ -81,15 +82,15 @@ export default function DetalhesClientePage() {
             <h2>{aplicacao.nome}</h2>
             <p>{aplicacao.funcionalidades.length} funcionalidade(s)</p>
             <div className="button-row">
-              <Link to={`/clientes/${cliente.id}/aplicacoes/${aplicacao.id}`} className="secondary-button">
+              <ButtonLink to={`/clientes/${cliente.id}/aplicacoes/${aplicacao.id}`} variant="secondary">
                 Ver detalhes
-              </Link>
-              <Link to={`/clientes/${cliente.id}/aplicacoes/${aplicacao.id}/editar`} className="ghost-button">
+              </ButtonLink>
+              <ButtonLink to={`/clientes/${cliente.id}/aplicacoes/${aplicacao.id}/editar`} variant="ghost">
                 Editar
-              </Link>
-              <button type="button" className="danger-button" onClick={() => removerAplicacao(aplicacao.id)}>
+              </ButtonLink>
+              <Button onClick={() => removerAplicacao(aplicacao.id)} variant="danger">
                 Excluir
-              </button>
+              </Button>
             </div>
           </BasicCard>
         ))}

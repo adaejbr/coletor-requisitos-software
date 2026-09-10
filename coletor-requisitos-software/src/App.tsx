@@ -2,20 +2,20 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import { Breadcrumbs } from './components/Breadcrumbs'
 import HomePage from './pages/HomePage'
 import HomeTutoriaisPage from './pages/tutoriais/HomeTutoriaisPage'
-import TutorialFuncionalidadeClientesPage from './pages/tutoriais/TutorialFuncionalidadeClientesPage'
+import TutorialFuncionalidadeClientesPage from './pages/tutoriais/funcionalidade-clientes/TutorialFuncionalidadeClientesPage'
 import ClientesPage from './pages/clientes/ClientesPage'
-import DetalhesAplicacaoPage from './pages/clientes/DetalhesAplicacaoPage'
-import DetalhesAplicacaoBriefingPage from './pages/clientes/DetalhesAplicacaoBriefingPage'
+import DetalhesAplicacaoPage from './pages/clientes/aplicacoes/DetalhesAplicacaoPage'
+import DetalhesAplicacaoBriefingPage from './pages/clientes/aplicacoes/DetalhesAplicacaoBriefingPage'
 import DetalhesClientePage from './pages/clientes/DetalhesClientePage'
-import EditarFuncionalidadePage from './pages/clientes/EditarFuncionalidadePage'
-import NovaAplicacaoPage from './pages/clientes/NovaAplicacaoPage'
-import NovaFuncionalidadePage from './pages/clientes/NovaFuncionalidadePage'
-import NovoClientePage from './pages/clientes/NovoClientePage'
-import VisualizarFuncionalidadePage from './pages/clientes/VisualizarFuncionalidadePage'
+import NovaAplicacaoPage from './pages/clientes/aplicacoes/ControleAplicacaoPage'
+import NovaFuncionalidadePage from './pages/clientes/funcionalidades/ControleFuncionalidadePage'
+import NovoClientePage from './pages/clientes/ControleClientePage'
+import VisualizarFuncionalidadePage from './pages/clientes/funcionalidades/VisualizarFuncionalidadePage'
 import FormularioBriefingPage from './pages/configuracoes/FormularioBriefingPage'
 import FormulariosPage from './pages/configuracoes/FormulariosPage'
 import { Header } from './components/header/Header'
 import './App.css'
+import './styles/shared.css'
 
 function App() {
   return (
@@ -48,7 +48,7 @@ function App() {
                 <Route path="funcionalidades">
                   <Route path="nova" element={<NovaFuncionalidadePage />} />
                   <Route path=":funcionalidadeId">
-                    <Route path="editar" element={<EditarFuncionalidadePage />} />
+                    <Route path="editar" element={<NovaFuncionalidadePage />} />
                     <Route path="visualizar" element={<VisualizarFuncionalidadePage />} />
                   </Route>
                 </Route>

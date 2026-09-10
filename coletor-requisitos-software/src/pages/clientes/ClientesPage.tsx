@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { useToast } from '../../components/ToastProvider'
-import { BasicCard } from '../../components/cards'
-import { storageService } from '../../services/storageService'
-import type { Cliente } from '../../types'
+import { useToast } from '@/components/ToastProvider'
+import { Button, ButtonLink } from '@/components/buttons'
+import { BasicCard } from '@/components/cards'
+import { storageService } from '@/services/storageService'
+import type { Cliente } from '@/types'
 
 const formatarData = (data: Date) =>
   new Intl.DateTimeFormat('pt-BR', {
@@ -52,9 +52,9 @@ export default function ClientesPage() {
           <p className="eyebrow">Clientes</p>
           <h1>Listagem de Clientes</h1>
         </div>
-        <Link to="/clientes/novo" className="primary-button">
+        <ButtonLink to="/clientes/novo" variant="primary">
           Novo Cliente
-        </Link>
+        </ButtonLink>
       </div>
 
       <div className="toolbar">
@@ -78,15 +78,15 @@ export default function ClientesPage() {
               <strong>Última alteração:</strong> {formatarData(cliente.dataUltimaAlteracao)}
             </p>
             <div className="button-row">
-              <Link to={`/clientes/${cliente.id}`} className="secondary-button">
+              <ButtonLink to={`/clientes/${cliente.id}`} variant="secondary">
                 Ver detalhes
-              </Link>
-              <Link to={`/clientes/${cliente.id}/editar`} className="ghost-button">
+              </ButtonLink>
+              <ButtonLink to={`/clientes/${cliente.id}/editar`} variant="ghost">
                 Editar
-              </Link>
-              <button type="button" className="danger-button" onClick={() => excluirCliente(cliente.id)}>
+              </ButtonLink>
+              <Button onClick={() => excluirCliente(cliente.id)} variant="danger">
                 Excluir
-              </button>
+              </Button>
             </div>
           </BasicCard>
         ))}

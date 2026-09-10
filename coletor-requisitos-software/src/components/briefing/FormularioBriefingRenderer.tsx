@@ -3,8 +3,9 @@ import { useEffect, useMemo, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { Button } from '../buttons'
 import { useToast } from '../ToastProvider'
-import type { FormularioBriefing, RespostaBriefing } from '../../types/briefing'
-import { validarRespostasObrigatoriasBriefing } from '../../utils/validators'
+import type { FormularioBriefing, RespostaBriefing } from '@/types/briefing'
+import { validarRespostasObrigatoriasBriefing } from '@/utils/validators'
+import './Briefing.css'
 import { SecaoBriefingRenderer } from './SecaoBriefingRenderer'
 
 type FormularioBriefingRendererProps = {

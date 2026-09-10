@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
-import { BasicCard } from '../../components/cards'
+import { BasicCard } from '@/components/cards'
+import { ButtonLink } from '@/components/buttons'
 
 export default function HomeTutoriaisPage() {
   return (
@@ -16,9 +16,9 @@ export default function HomeTutoriaisPage() {
             <h2>Funcionalidade de Clientes</h2>
             <p>Passo a passo para cadastrar clientes, aplicações e funcionalidades no fluxo principal.</p>
           </div>
-          <Link to="/tutoriais/funcionalidade-clientes" className="primary-button home-link">
+          <ButtonLink to="/tutoriais/funcionalidade-clientes" variant="primary" className="home-link">
             Abrir tutorial
-          </Link>
+          </ButtonLink>
         </BasicCard>
       </div>
     </section>

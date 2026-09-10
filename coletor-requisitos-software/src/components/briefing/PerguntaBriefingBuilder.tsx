@@ -1,5 +1,5 @@
 import { Button } from '../buttons'
-import type { PerguntaBriefing, TipoPerguntaBriefing } from '../../types/briefing'
+import type { PerguntaBriefing, TipoPerguntaBriefing } from '@/types/briefing'
 
 const tiposPergunta: TipoPerguntaBriefing[] = [
   'texto',

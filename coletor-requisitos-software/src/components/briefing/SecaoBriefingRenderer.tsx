@@ -1,4 +1,4 @@
-import type { SecaoBriefing } from '../../types/briefing'
+import type { SecaoBriefing } from '@/types/briefing'
 import { PerguntaBriefingRenderer } from './PerguntaBriefingRenderer'
 
 type SecaoBriefingRendererProps = {

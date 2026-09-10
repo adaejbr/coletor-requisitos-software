@@ -8,6 +8,7 @@ import {
   useState,
   type ReactNode,
 } from 'react'
+import './ToastProvider.css'
 
 type ToastContextValue = {
   showToast: (message: string) => void

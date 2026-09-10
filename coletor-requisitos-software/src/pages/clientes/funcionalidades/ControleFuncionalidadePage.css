@@ -1,0 +1,93 @@
+.relationship-editor {
+  display: grid;
+  gap: 14px;
+}
+
+.relationship-board {
+  position: relative;
+  min-height: 320px;
+  border: 1px solid #dfe3ef;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #f8faff 0%, #eef2ff 100%);
+  overflow: hidden;
+}
+
+.relationship-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.relationship-line {
+  stroke: #4f46e5;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  cursor: pointer;
+  pointer-events: all;
+  opacity: 0.9;
+}
+
+.relationship-line.selected {
+  stroke: #ef4444;
+  stroke-width: 3;
+}
+
+.relationship-node {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 160px;
+  min-height: 54px;
+  padding: 8px 12px;
+  border: 2px solid #c7d2fe;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 10px 20px rgba(79, 70, 229, 0.08);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+.relationship-node.selected {
+  border-color: #4f46e5;
+  box-shadow: 0 12px 24px rgba(79, 70, 229, 0.14);
+}
+
+.relationship-node__handle {
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border: 1px solid #c7d2fe;
+  border-radius: 8px;
+  background: #eef2ff;
+  color: #312e81;
+  font-size: 0.8rem;
+  cursor: grab;
+}
+
+.relationship-node__handle:active {
+  cursor: grabbing;
+}
+
+.relationship-node__label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 24px;
+  font-weight: 700;
+  color: #1f2937;
+  text-align: center;
+  word-break: break-word;
+}
+
+.relationship-actions {
+  display: flex;
+  justify-content: flex-end;
+}

@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
-import { useToast } from '../../components/ToastProvider'
-import { BasicCard } from '../../components/cards'
-import { exportarAplicacaoJson, exportarAplicacaoPdf } from '../../services/exportService'
-import { storageService } from '../../services/storageService'
-import type { Aplicacao } from '../../types'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useToast } from '@/components/ToastProvider'
+import { Button, ButtonLink } from '@/components/buttons'
+import { BasicCard } from '@/components/cards'
+import { exportarAplicacaoJson, exportarAplicacaoPdf } from '@/services/exportService'
+import { storageService } from '@/services/storageService'
+import type { Aplicacao } from '@/types'
 
 export default function DetalhesAplicacaoPage() {
   const { clienteId, aplicacaoId } = useParams()
@@ -84,18 +85,18 @@ export default function DetalhesAplicacaoPage() {
           <h1>{aplicacao.nome}</h1>
         </div>
         <div className="button-row export-actions">
-          <button type="button" className="secondary-button" onClick={handleExportJson}>
+          <Button type="button" variant="secondary" onClick={handleExportJson}>
             Exportar JSON
-          </button>
-          <button type="button" className="ghost-button" onClick={handleExportPdf}>
+          </Button>
+          <Button type="button" variant="ghost" onClick={handleExportPdf}>
             Exportar PDF
-          </button>
-          <Link to={`/clientes/${clienteId}/aplicacoes/${aplicacaoId}/funcionalidades/nova`} className="primary-button">
+          </Button>
+          <ButtonLink to={`/clientes/${clienteId}/aplicacoes/${aplicacaoId}/funcionalidades/nova`} variant="primary">
             Nova Funcionalidade
-          </Link>
-          <Link to={`/clientes/${clienteId}`} className="secondary-button">
+          </ButtonLink>
+          <ButtonLink to={`/clientes/${clienteId}`} variant="secondary">
             Voltar
-          </Link>
+          </ButtonLink>
         </div>
       </div>
 
@@ -105,15 +106,15 @@ export default function DetalhesAplicacaoPage() {
             <h2>{funcionalidade.nome}</h2>
             <p>{funcionalidade.descricao}</p>
             <div className="button-row">
-              <Link to={`/clientes/${clienteId}/aplicacoes/${aplicacaoId}/funcionalidades/${funcionalidade.id}/visualizar`} className="secondary-button">
+              <ButtonLink to={`/clientes/${clienteId}/aplicacoes/${aplicacaoId}/funcionalidades/${funcionalidade.id}/visualizar`} variant="secondary">
                 Visualizar
-              </Link>
-              <Link to={`/clientes/${clienteId}/aplicacoes/${aplicacaoId}/funcionalidades/${funcionalidade.id}/editar`} className="ghost-button">
+              </ButtonLink>
+              <ButtonLink to={`/clientes/${clienteId}/aplicacoes/${aplicacaoId}/funcionalidades/${funcionalidade.id}/editar`} variant="ghost">
                 Editar
-              </Link>
-              <button type="button" className="danger-button" onClick={() => removerFuncionalidade(funcionalidade.id)}>
+              </ButtonLink>
+              <Button type="button" variant="danger" onClick={() => removerFuncionalidade(funcionalidade.id)}>
                 Excluir
-              </button>
+              </Button>
             </div>
           </BasicCard>
         ))}
