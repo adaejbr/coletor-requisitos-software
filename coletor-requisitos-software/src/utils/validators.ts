@@ -5,12 +5,79 @@ import {
   type Cliente,
   type ClienteStatus,
   type Entidade,
+  type FormularioBriefing,
   type Funcionalidade,
+  type PerguntaBriefing,
   type RelacionamentoEntidade,
+  type RespostaBriefing,
+  type SecaoBriefing,
   type Usuario,
 } from '../types'
 
 export const clienteStatusSchema = z.enum(CLIENTE_STATUS)
+
+export const tipoPerguntaBriefingSchema = z.enum([
+  'texto',
+  'textarea',
+  'numero',
+  'data',
+  'select',
+  'radio',
+  'checkbox',
+  'booleano',
+])
+
+export const opcaoPerguntaBriefingSchema = z.object({
+  id: z.string().trim().min(1, 'O identificador da opção é obrigatório.'),
+  label: z.string().trim().min(1, 'A label da opção é obrigatória.'),
+  valor: z.string().trim().min(1, 'O valor da opção é obrigatório.'),
+})
+
+export const perguntaBriefingSchema = z.object({
+  id: z.string().trim().min(1, 'O identificador da pergunta é obrigatório.'),
+  enunciado: z.string().trim().min(1, 'O enunciado da pergunta é obrigatório.'),
+  descricaoAjuda: z.string().trim().optional(),
+  tipo: tipoPerguntaBriefingSchema,
+  obrigatoria: z.boolean(),
+  opcoes: z.array(opcaoPerguntaBriefingSchema).optional(),
+  ordem: z.number().int().nonnegative(),
+  ativo: z.boolean(),
+  placeholder: z.string().trim().optional(),
+})
+
+export const secaoBriefingSchema = z.object({
+  id: z.string().trim().min(1, 'O identificador da seção é obrigatório.'),
+  titulo: z.string().trim().min(1, 'O título da seção é obrigatório.'),
+  descricao: z.string().trim().optional(),
+  ordem: z.number().int().nonnegative(),
+  ativo: z.boolean(),
+  perguntas: z.array(perguntaBriefingSchema).default([]),
+})
+
+export const formularioBriefingSchema = z.object({
+  id: z.string().trim().min(1, 'O identificador do formulário é obrigatório.'),
+  nome: z.string().trim().min(1, 'O nome do formulário é obrigatório.'),
+  descricao: z.string().trim().optional(),
+  ativo: z.boolean(),
+  versao: z.number().int().nonnegative(),
+  secoes: z.array(secaoBriefingSchema).default([]),
+  criadoEm: z.string().trim().min(1, 'A data de criação é obrigatória.'),
+  atualizadoEm: z.string().trim().min(1, 'A data de atualização é obrigatória.'),
+})
+
+export const respostaBriefingSchema = z.object({
+  id: z.string().trim().min(1, 'O identificador da resposta é obrigatório.'),
+  idCliente: z.string().trim().min(1, 'O cliente da resposta é obrigatório.'),
+  idAplicacao: z.string().trim().min(1, 'A aplicação da resposta é obrigatória.'),
+  idFormulario: z.string().trim().min(1, 'O formulário da resposta é obrigatório.'),
+  versaoFormulario: z.number().int().nonnegative(),
+  snapshotFormulario: formularioBriefingSchema.optional(),
+  respostas: z.record(z.string(), z.unknown()).default({}),
+  status: z.enum(['rascunho', 'concluido']),
+  criadoEm: z.string().trim().min(1, 'A data de criação da resposta é obrigatória.'),
+  atualizadoEm: z.string().trim().min(1, 'A data de atualização da resposta é obrigatória.'),
+  concluidoEm: z.string().trim().optional(),
+})
 
 export const usuarioSchema = z.object({
   id: z.string().trim().min(1, 'O identificador do usuário é obrigatório.'),
@@ -84,10 +151,25 @@ export function validarEntidade(entidade: unknown): Entidade {
 }
 
 export function validarRelacionamento(relacionamento: unknown): RelacionamentoEntidade {
-  console.log('Validando relacionamento:', relacionamento);
   return relacionamentoEntidadeSchema.parse(relacionamento) as RelacionamentoEntidade
 }
 
 export function validarStatusCliente(status: unknown): ClienteStatus {
   return clienteStatusSchema.parse(status) as ClienteStatus
+}
+
+export function validarPerguntaBriefing(pergunta: unknown): PerguntaBriefing {
+  return perguntaBriefingSchema.parse(pergunta) as PerguntaBriefing
+}
+
+export function validarSecaoBriefing(secao: unknown): SecaoBriefing {
+  return secaoBriefingSchema.parse(secao) as SecaoBriefing
+}
+
+export function validarFormularioBriefing(formulario: unknown): FormularioBriefing {
+  return formularioBriefingSchema.parse(formulario) as FormularioBriefing
+}
+
+export function validarRespostaBriefing(resposta: unknown): RespostaBriefing {
+  return respostaBriefingSchema.parse(resposta) as RespostaBriefing
 }

@@ -372,6 +372,72 @@ textarea {
   resize: vertical;
 }
 
+.form-builder-stack {
+  display: grid;
+  gap: 16px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin: 0 0 20px;
+}
+
+.small-stat {
+  display: grid;
+  gap: 8px;
+  text-align: center;
+}
+
+.small-stat span {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.small-stat strong {
+  font-size: 1.6rem;
+}
+
+.table-card {
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+}
+
+.table-card table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-card th,
+.table-card td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+  vertical-align: top;
+}
+
+.table-card th {
+  background: #f8fafc;
+  color: #475569;
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.table-card tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.compact-row {
+  gap: 8px;
+}
+
 .button-row {
   display: flex;
   flex-wrap: wrap;

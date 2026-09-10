@@ -11,6 +11,8 @@ import NovaAplicacaoPage from './pages/clientes/NovaAplicacaoPage'
 import NovaFuncionalidadePage from './pages/clientes/NovaFuncionalidadePage'
 import NovoClientePage from './pages/clientes/NovoClientePage'
 import VisualizarFuncionalidadePage from './pages/clientes/VisualizarFuncionalidadePage'
+import FormularioBriefingPage from './pages/configuracoes/FormularioBriefingPage'
+import FormulariosPage from './pages/configuracoes/FormulariosPage'
 import './App.css'
 
 function App() {
@@ -32,6 +34,9 @@ function App() {
           <NavLink to="/clientes" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
             Clientes
           </NavLink>
+          <NavLink to="/configuracoes/formularios" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
+            Configuração
+          </NavLink>
           <NavLink to="/tutoriais" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
             Tutoriais
           </NavLink>
@@ -43,6 +48,12 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/tutoriais" element={<HomeTutoriaisPage />} />
         <Route path="/tutoriais/funcionalidade-clientes" element={<TutorialFuncionalidadeClientesPage />} />
+
+        <Route path="/configuracoes">
+          <Route path="formularios" element={<FormulariosPage />} />
+          <Route path="formularios/novo" element={<FormularioBriefingPage />} />
+          <Route path="formularios/:idFormulario/editar" element={<FormularioBriefingPage />} />
+        </Route>
 
         <Route path="/clientes">
           <Route path="" element={<ClientesPage />} />

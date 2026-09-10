@@ -44,3 +44,5 @@ export interface Cliente {
   status: ClienteStatus
   aplicacoes: Aplicacao[]
 }
+
+export * from './briefing'

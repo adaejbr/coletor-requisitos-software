@@ -1,0 +1,197 @@
+import { useEffect, useState } from 'react'
+import { v4 as uuidv4 } from 'uuid'
+import type { FormularioBriefing, PerguntaBriefing, SecaoBriefing } from '../../types/briefing'
+import { SecaoBriefingBuilder } from './SecaoBriefingBuilder'
+
+type FormularioBriefingBuilderProps = {
+  initialFormulario: FormularioBriefing
+  onSave: (formulario: FormularioBriefing) => Promise<void> | void
+  onCancel?: () => void
+}
+
+const criarPerguntaPadrao = (): PerguntaBriefing => ({
+  id: uuidv4(),
+  enunciado: '',
+  tipo: 'texto',
+  obrigatoria: false,
+  ordem: 1,
+  ativo: true,
+})
+
+const criarSecaoPadrao = (): SecaoBriefing => ({
+  id: uuidv4(),
+  titulo: '',
+  ordem: 1,
+  ativo: true,
+  perguntas: [criarPerguntaPadrao()],
+})
+
+const serializarFormulario = (formulario: FormularioBriefing): FormularioBriefing => ({
+  ...formulario,
+  atualizadoEm: new Date().toISOString(),
+  secoes: formulario.secoes.map((secao, secaoIndex) => ({
+    ...secao,
+    ordem: secaoIndex + 1,
+    perguntas: secao.perguntas.map((pergunta, perguntaIndex) => ({
+      ...pergunta,
+      ordem: perguntaIndex + 1,
+    })),
+  })),
+})
+
+export function FormularioBriefingBuilder({
+  initialFormulario,
+  onSave,
+  onCancel,
+}: FormularioBriefingBuilderProps) {
+  const [formulario, setFormulario] = useState<FormularioBriefing>(initialFormulario)
+
+  useEffect(() => {
+    setFormulario(initialFormulario)
+  }, [initialFormulario])
+
+  const atualizarFormulario = (atualizacao: Partial<FormularioBriefing>) => {
+    setFormulario((prev) => ({ ...prev, ...atualizacao }))
+  }
+
+  const atualizarSecao = (secaoId: string, secaoAtualizada: SecaoBriefing) => {
+    setFormulario((prev) => ({
+      ...prev,
+      secoes: prev.secoes.map((secao) => (secao.id === secaoId ? secaoAtualizada : secao)),
+    }))
+  }
+
+  const adicionarSecao = () => {
+    setFormulario((prev) => ({
+      ...prev,
+      secoes: [...prev.secoes, criarSecaoPadrao()],
+    }))
+  }
+
+  const toggleSecaoStatus = (secaoId: string) => {
+    setFormulario((prev) => ({
+      ...prev,
+      secoes: prev.secoes.map((secao) =>
+        secao.id === secaoId ? { ...secao, ativo: !secao.ativo } : secao,
+      ),
+    }))
+  }
+
+  const adicionarPergunta = (secaoId: string) => {
+    setFormulario((prev) => ({
+      ...prev,
+      secoes: prev.secoes.map((secao) =>
+        secao.id === secaoId
+          ? { ...secao, perguntas: [...secao.perguntas, criarPerguntaPadrao()] }
+          : secao,
+      ),
+    }))
+  }
+
+  const moverSecao = (indice: number, direcao: -1 | 1) => {
+    setFormulario((prev) => {
+      const prox = [...prev.secoes]
+      const alvo = indice + direcao
+      if (alvo < 0 || alvo >= prox.length) return prev
+
+      ;[prox[indice], prox[alvo]] = [prox[alvo], prox[indice]]
+      return { ...prev, secoes: prox }
+    })
+  }
+
+  const moverPergunta = (secaoId: string, indicePergunta: number, direcao: -1 | 1) => {
+    setFormulario((prev) => ({
+      ...prev,
+      secoes: prev.secoes.map((secao) => {
+        if (secao.id !== secaoId) return secao
+
+        const perguntas = [...secao.perguntas]
+        const alvo = indicePergunta + direcao
+        if (alvo < 0 || alvo >= perguntas.length) return secao
+
+        ;[perguntas[indicePergunta], perguntas[alvo]] = [perguntas[alvo], perguntas[indicePergunta]]
+        return { ...secao, perguntas }
+      }),
+    }))
+  }
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+
+    const formularioFinal = serializarFormulario(formulario)
+    await onSave(formularioFinal)
+  }
+
+  return (
+    <form className="form-card" onSubmit={handleSubmit}>
+      <label>
+        Nome do formulário
+        <input
+          value={formulario.nome}
+          onChange={(event) => atualizarFormulario({ nome: event.target.value })}
+          placeholder="Ex.: Briefing de onboarding"
+          required
+        />
+      </label>
+
+      <label>
+        Descrição
+        <textarea
+          value={formulario.descricao ?? ''}
+          onChange={(event) => atualizarFormulario({ descricao: event.target.value || undefined })}
+          rows={3}
+          placeholder="Descreva o objetivo deste formulário"
+        />
+      </label>
+
+      <label>
+        Status
+        <select
+          value={String(formulario.ativo)}
+          onChange={(event) => atualizarFormulario({ ativo: event.target.value === 'true' })}
+        >
+          <option value="true">Ativo</option>
+          <option value="false">Inativo</option>
+        </select>
+      </label>
+
+      <div className="button-row">
+        <button type="button" className="secondary-button" onClick={adicionarSecao}>
+          + Adicionar seção
+        </button>
+      </div>
+
+      <div className="form-builder-stack">
+        {formulario.secoes.length === 0 && (
+          <div className="empty-state">
+            <p>Nenhuma seção cadastrada. Adicione uma seção para começar.</p>
+          </div>
+        )}
+
+        {formulario.secoes.map((secao, index) => (
+          <SecaoBriefingBuilder
+            key={secao.id}
+            secao={secao}
+            onUpdate={(secaoAtualizada) => atualizarSecao(secao.id, secaoAtualizada)}
+            onAddPergunta={() => adicionarPergunta(secao.id)}
+            onToggleStatus={() => toggleSecaoStatus(secao.id)}
+            onMoveUp={() => moverSecao(index, -1)}
+            onMoveDown={() => moverSecao(index, 1)}
+            onMoveQuestion={(indicePergunta, direcao) => moverPergunta(secao.id, indicePergunta, direcao)}
+          />
+        ))}
+      </div>
+
+      <div className="button-row">
+        <button type="submit" className="primary-button">
+          Salvar formulário
+        </button>
+        {onCancel && (
+          <button type="button" className="ghost-button" onClick={onCancel}>
+            Cancelar
+          </button>
+        )}
+      </div>
+    </form>
+  )
+}
