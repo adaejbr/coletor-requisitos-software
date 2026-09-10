@@ -9,4 +9,5 @@ export default defineConfig({
       '@': path.resolve(import.meta.dirname, './src'),
     },
   },
+  base: process.env.NODE_ENV === 'production' ? '/coletor-requisitos-software/' : '/',
 })

@@ -26,10 +26,13 @@ function App() {
       <Breadcrumbs />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/tutoriais" element={<HomeTutoriaisPage />} />
-        <Route path="/tutoriais/funcionalidade-clientes" element={<TutorialFuncionalidadeClientesPage />} />
-        <Route path="/tutoriais/formularios-briefing/configuracao" element={<TutorialConfiguracaoFormulariosPage />} />
-        <Route path="/tutoriais/formularios-briefing/uso" element={<TutorialUsoFormulariosPage />} />
+
+        <Route path="/tutoriais">
+          <Route path="" element={<HomeTutoriaisPage />} />
+          <Route path="funcionalidade-clientes" element={<TutorialFuncionalidadeClientesPage />} />
+          <Route path="formularios-briefing/configuracao" element={<TutorialConfiguracaoFormulariosPage />} />
+          <Route path="formularios-briefing/uso" element={<TutorialUsoFormulariosPage />} />
+        </Route>
 
         <Route path="/configuracoes">
           <Route path="formularios" element={<FormulariosPage />} />
