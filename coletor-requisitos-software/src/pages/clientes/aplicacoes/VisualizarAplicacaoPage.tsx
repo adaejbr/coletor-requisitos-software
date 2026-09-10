@@ -232,7 +232,7 @@ export default function DetalhesAplicacaoPage() {
           <Button type="button" variant="secondary" onClick={handleExportJson}>
             Exportar JSON
           </Button>
-          <Button type="button" variant="ghost" onClick={handleExportPdf}>
+          <Button type="button" variant="danger" onClick={handleExportPdf}>
             Exportar PDF
           </Button>
           <ButtonLink to={`/clientes/${clienteId}/aplicacoes/${aplicacaoId}/funcionalidades/nova`} variant="primary">
@@ -258,8 +258,8 @@ export default function DetalhesAplicacaoPage() {
           <h2>Formulários</h2>
           <p>Todos os formulários ativos pendentes ou concluídos serão apresentados nesta seção.</p>
         </div>
-        <div className="card-content">
-          <h3>Formulários Pendentes:</h3>
+        <div className="card-content" style={{ marginBottom: '1rem', marginTop: '1rem'}}>
+          <h3 style={{ marginBottom: '1rem' }}>Formulários Pendentes:</h3>
           <Table
             columns={columnsPendentes}
             data={formulariosPendentes}
@@ -269,9 +269,8 @@ export default function DetalhesAplicacaoPage() {
         </div>
 
         {formulariosConcluidos.length > 0 && (
-          <div className="card-content">
-            <br />
-            <h3>Formulários concluídos:</h3>
+          <div className="card-content" style={{ marginBottom: '1rem', marginTop: '2rem'}}>
+            <h3 style={{ marginBottom: '1rem' }}>Formulários concluídos:</h3>
             <Table
               columns={columnsConcluidos}
               data={formulariosConcluidos}
@@ -281,6 +280,12 @@ export default function DetalhesAplicacaoPage() {
           </div>
         )}
       </BasicCard>
+      <br />
+      <hr />
+      <br />
+      <h2>Funcionalidades</h2>
+      <p>As funcionalidades cadastradas para esta aplicação são apresentadas abaixo.</p>
+      <br />
 
       <div className="card-grid">
         {aplicacao.funcionalidades.map((funcionalidade) => (
