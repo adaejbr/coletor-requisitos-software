@@ -401,39 +401,6 @@ textarea {
   font-size: 1.6rem;
 }
 
-.table-card {
-  overflow: hidden;
-  border: 1px solid #e5e7eb;
-  border-radius: 16px;
-  background: #fff;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
-}
-
-.table-card table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.table-card th,
-.table-card td {
-  padding: 14px 16px;
-  border-bottom: 1px solid #e5e7eb;
-  text-align: left;
-  vertical-align: top;
-}
-
-.table-card th {
-  background: #f8fafc;
-  color: #475569;
-  font-size: 0.76rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.table-card tbody tr:last-child td {
-  border-bottom: none;
-}
-
 .compact-row {
   gap: 8px;
 }
@@ -671,28 +638,6 @@ textarea {
   font-size: 0.8rem;
 }
 
-.status-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 82px;
-  padding: 6px 10px;
-  border-radius: 999px;
-  font-size: 0.74rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-.status-active {
-  background: #dcfce7;
-  color: #166534;
-}
-
-.status-inactive {
-  background: #f3f4f6;
-  color: #4b5563;
-}
 
 .info-panel,
 .success-panel,

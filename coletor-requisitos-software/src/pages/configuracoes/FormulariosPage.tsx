@@ -1,6 +1,8 @@
 import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
+import { Table, type TableColumn } from '../../components/table/Table'
 import { useBriefingForms } from '../../hooks/useBriefingForms'
+import type { FormularioBriefing } from '../../types/briefing'
 
 const formatarData = (iso: string) =>
   new Intl.DateTimeFormat('pt-BR', {
@@ -42,6 +44,66 @@ export default function FormulariosPage() {
     )
   }
 
+  const columns: TableColumn<FormularioBriefing>[] = [
+    {
+      key: 'nome',
+      header: 'Nome',
+      render: (formulario) => (
+        <>
+          <strong>{formulario.nome}</strong>
+          {formulario.descricao && <div className="muted-text">{formulario.descricao}</div>}
+        </>
+      ),
+    },
+    {
+      key: 'secoes',
+      header: 'Seções',
+      render: (formulario) => formulario.secoes.length,
+      align: 'center',
+    },
+    {
+      key: 'perguntas',
+      header: 'Perguntas',
+      render: (formulario) => formulario.secoes.reduce((contador, secao) => contador + secao.perguntas.length, 0),
+      align: 'center',
+    },
+    {
+      key: 'status',
+      header: 'Status',
+      render: (formulario) => (
+        <span className={`status-badge ${formulario.ativo ? 'status-active' : 'status-inactive'}`}>
+          {formulario.ativo ? 'Ativo' : 'Inativo'}
+        </span>
+      ),
+      align: 'center',
+    },
+    {
+      key: 'atualizadoEm',
+      header: 'Atualizado em',
+      render: (formulario) => formatarData(formulario.atualizadoEm),
+    },
+    {
+      key: 'acoes',
+      header: 'Ações',
+      render: (formulario) => (
+        <div className="button-row compact-row">
+          <Link to={`/configuracoes/formularios/${formulario.id}/editar`} className="secondary-button">
+            Editar
+          </Link>
+          <button
+            type="button"
+            className={formulario.ativo ? 'ghost-button' : 'secondary-button'}
+            onClick={() =>
+              formulario.ativo ? inativarFormulario(formulario.id) : reativarFormulario(formulario.id)
+            }
+          >
+            {formulario.ativo ? 'Inativar' : 'Reativar'}
+          </button>
+        </div>
+      ),
+    },
+  ]
+
   return (
     <section className="page">
       <div className="page-header">
@@ -73,68 +135,17 @@ export default function FormulariosPage() {
         </div>
       </div>
 
-      <div className="table-card">
-        <table>
-          <thead>
-            <tr>
-              <th>Nome</th>
-              <th>Seções</th>
-              <th>Perguntas</th>
-              <th>Status</th>
-              <th>Atualizado em</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            {formularios.map((formulario) => {
-              const totalPerguntasFormulario = formulario.secoes.reduce(
-                (contador, secao) => contador + secao.perguntas.length,
-                0,
-              )
-
-              return (
-                <tr key={formulario.id}>
-                  <td>
-                    <strong>{formulario.nome}</strong>
-                    {formulario.descricao && <div className="muted-text">{formulario.descricao}</div>}
-                  </td>
-                  <td>{formulario.secoes.length}</td>
-                  <td>{totalPerguntasFormulario}</td>
-                  <td>
-                    <span className={`status-badge ${formulario.ativo ? 'status-active' : 'status-inactive'}`}>
-                      {formulario.ativo ? 'Ativo' : 'Inativo'}
-                    </span>
-                  </td>
-                  <td>{formatarData(formulario.atualizadoEm)}</td>
-                  <td>
-                    <div className="button-row compact-row">
-                      <Link to={`/configuracoes/formularios/${formulario.id}/editar`} className="secondary-button">
-                        Editar
-                      </Link>
-                      <button
-                        type="button"
-                        className={formulario.ativo ? 'ghost-button' : 'secondary-button'}
-                        onClick={() =>
-                          formulario.ativo ? inativarFormulario(formulario.id) : reativarFormulario(formulario.id)
-                        }
-                      >
-                        {formulario.ativo ? 'Inativar' : 'Reativar'}
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
-
-        {formularios.length === 0 && (
+      <Table
+        columns={columns}
+        data={formularios}
+        getRowKey={(formulario) => formulario.id}
+        emptyState={
           <div className="empty-state">
             <strong>Nenhum formulário cadastrado.</strong>
             <p>Crie o primeiro briefing para começar a organização de perguntas e seções.</p>
           </div>
-        )}
-      </div>
+        }
+      />
     </section>
   )
 }
