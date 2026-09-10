@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
 import { BasicCard } from './cards'
+import { ButtonLink } from './buttons'
 
 type CardHomeProps = {
     icon: React.ReactNode
@@ -17,9 +17,9 @@ export function CardHome({ icon, title, description, linkTo, linkText }: CardHom
             <h2>{title}</h2>
             <p>{description}</p>
           </div>
-          <Link to={linkTo} className="primary-button home-link">
+          <ButtonLink to={linkTo} variant="primary" className="home-link">
             {linkText}
-          </Link>
+          </ButtonLink>
         </BasicCard>
     )
 }

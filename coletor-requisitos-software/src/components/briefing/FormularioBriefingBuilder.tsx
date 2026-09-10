@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 import { useEffect, useMemo, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
+import { Button } from '../buttons'
 import { FormCard } from '../cards'
 import type { FormularioBriefing, PerguntaBriefing, SecaoBriefing } from '../../types/briefing'
 import { validarConfiguracaoFormularioBriefing } from '../../utils/validators'
@@ -195,9 +196,9 @@ export function FormularioBriefingBuilder({
       )}
 
       <div className="button-row">
-        <button type="button" className="secondary-button" onClick={adicionarSecao}>
+        <Button type="button" variant="secondary" onClick={adicionarSecao}>
           + Adicionar seção
-        </button>
+        </Button>
       </div>
 
       <div className="form-builder-stack">
@@ -222,13 +223,13 @@ export function FormularioBriefingBuilder({
       </div>
 
       <div className="button-row">
-        <button type="submit" className="primary-button" disabled={formulario.ativo && errosValidacao.length > 0}>
+        <Button type="submit" variant="primary" disabled={formulario.ativo && errosValidacao.length > 0}>
           Salvar formulário
-        </button>
+        </Button>
         {onCancel && (
-          <button type="button" className="ghost-button" onClick={onCancel}>
+          <Button type="button" variant="ghost" onClick={onCancel}>
             Cancelar
-          </button>
+          </Button>
         )}
       </div>
     </FormCard>

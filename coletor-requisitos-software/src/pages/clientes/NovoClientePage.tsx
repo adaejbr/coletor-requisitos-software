@@ -1,8 +1,9 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { z } from 'zod'
+import { Button, ButtonLink } from '../../components/buttons'
 import { useToast } from '../../components/ToastProvider'
 import { FormCard } from '../../components/cards'
 import { storageService } from '../../services/storageService'
@@ -96,9 +97,9 @@ export default function NovoClientePage() {
           <p className="eyebrow">Cliente</p>
           <h1>{isEditMode ? 'Editar Cliente' : 'Novo Cliente'}</h1>
         </div>
-        <Link to="/" className="secondary-button">
+        <ButtonLink to="/" variant="secondary">
           Voltar
-        </Link>
+        </ButtonLink>
       </div>
 
       <FormCard onSubmit={form.handleSubmit(onSubmit)}>
@@ -129,12 +130,12 @@ export default function NovoClientePage() {
         </label>
 
         <div className="button-row">
-          <button type="submit" className="primary-button" disabled={isLoading}>
+          <Button type="submit" variant="primary" disabled={isLoading}>
             {isLoading ? 'Carregando...' : isEditMode ? 'Salvar alterações' : 'Salvar cliente'}
-          </button>
-          <Link to="/" className="ghost-button">
+          </Button>
+          <ButtonLink to="/" variant="ghost">
             Cancelar
-          </Link>
+          </ButtonLink>
         </div>
       </FormCard>
     </section>

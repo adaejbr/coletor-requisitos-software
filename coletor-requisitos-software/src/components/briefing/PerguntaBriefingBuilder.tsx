@@ -1,3 +1,4 @@
+import { Button } from '../buttons'
 import type { PerguntaBriefing, TipoPerguntaBriefing } from '../../types/briefing'
 
 const tiposPergunta: TipoPerguntaBriefing[] = [
@@ -55,15 +56,15 @@ export function PerguntaBriefingBuilder({
     <div className="nested-group">
       <div className="button-row">
         <span className="muted-text">{pergunta.ativo ? 'Pergunta ativa' : 'Pergunta inativa'}</span>
-        <button type="button" className={pergunta.ativo ? 'ghost-button' : 'secondary-button'} onClick={onToggleStatus}>
+        <Button type="button" variant={pergunta.ativo ? 'ghost' : 'secondary'} onClick={onToggleStatus}>
           {pergunta.ativo ? 'Inativar' : 'Reativar'}
-        </button>
-        <button type="button" className="ghost-button" onClick={onMoveUp}>
+        </Button>
+        <Button type="button" variant="ghost" onClick={onMoveUp}>
           ↑
-        </button>
-        <button type="button" className="ghost-button" onClick={onMoveDown}>
+        </Button>
+        <Button type="button" variant="ghost" onClick={onMoveDown}>
           ↓
-        </button>
+        </Button>
       </div>
 
       <label>

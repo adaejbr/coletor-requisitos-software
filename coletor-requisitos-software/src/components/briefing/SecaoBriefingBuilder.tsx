@@ -1,3 +1,4 @@
+import { Button } from '../buttons'
 import type { SecaoBriefing } from '../../types/briefing'
 import { PerguntaBriefingBuilder } from './PerguntaBriefingBuilder'
 
@@ -24,15 +25,15 @@ export function SecaoBriefingBuilder({
     <div className="panel-section">
       <div className="button-row">
         <span className="muted-text">{secao.ativo ? 'Seção ativa' : 'Seção inativa'}</span>
-        <button type="button" className={secao.ativo ? 'ghost-button' : 'secondary-button'} onClick={onToggleStatus}>
+        <Button type="button" variant={secao.ativo ? 'ghost' : 'secondary'} onClick={onToggleStatus}>
           {secao.ativo ? 'Inativar' : 'Reativar'}
-        </button>
-        <button type="button" className="ghost-button" onClick={onMoveUp}>
+        </Button>
+        <Button type="button" variant="ghost" onClick={onMoveUp}>
           ↑
-        </button>
-        <button type="button" className="ghost-button" onClick={onMoveDown}>
+        </Button>
+        <Button type="button" variant="ghost" onClick={onMoveDown}>
           ↓
-        </button>
+        </Button>
       </div>
 
       <label>
@@ -55,9 +56,9 @@ export function SecaoBriefingBuilder({
       </label>
 
       <div className="button-row">
-        <button type="button" className="primary-button" onClick={onAddPergunta}>
+        <Button type="button" variant="primary" onClick={onAddPergunta}>
           + Adicionar pergunta
-        </button>
+        </Button>
       </div>
 
       <div className="nested-group">

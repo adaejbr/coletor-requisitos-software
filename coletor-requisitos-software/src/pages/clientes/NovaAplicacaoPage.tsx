@@ -1,8 +1,9 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { z } from 'zod'
+import { Button, ButtonLink } from '../../components/buttons'
 import { useToast } from '../../components/ToastProvider'
 import { FormCard } from '../../components/cards'
 import { storageService } from '../../services/storageService'
@@ -82,9 +83,9 @@ export default function NovaAplicacaoPage() {
           <p className="eyebrow">Aplicação</p>
           <h1>{isEditMode ? 'Editar Aplicação' : 'Nova Aplicação'}</h1>
         </div>
-        <Link to={`/clientes/${clienteId}`} className="secondary-button">
+        <ButtonLink to={`/clientes/${clienteId}`} variant="secondary">
           Voltar
-        </Link>
+        </ButtonLink>
       </div>
 
       <FormCard onSubmit={form.handleSubmit(onSubmit)}>
@@ -101,12 +102,12 @@ export default function NovaAplicacaoPage() {
         </label>
 
         <div className="button-row">
-          <button type="submit" className="primary-button" disabled={isLoading}>
+          <Button type="submit" variant="primary" disabled={isLoading}>
             {isLoading ? 'Carregando...' : isEditMode ? 'Salvar alterações' : 'Salvar aplicação'}
-          </button>
-          <Link to={`/clientes/${clienteId}`} className="ghost-button">
+          </Button>
+          <ButtonLink to={`/clientes/${clienteId}`} variant="ghost">
             Cancelar
-          </Link>
+          </ButtonLink>
         </div>
       </FormCard>
     </section>

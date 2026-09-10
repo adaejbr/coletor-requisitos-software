@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 import { useEffect, useMemo, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
+import { Button } from '../buttons'
 import { useToast } from '../ToastProvider'
 import type { FormularioBriefing, RespostaBriefing } from '../../types/briefing'
 import { validarRespostasObrigatoriasBriefing } from '../../utils/validators'
@@ -124,12 +125,12 @@ export function FormularioBriefingRenderer({
           </p>
         </div>
         <div className="button-row">
-          <button type="button" className="secondary-button" onClick={handleSalvarRascunho} disabled={salvando}>
+          <Button type="button" variant="secondary" onClick={handleSalvarRascunho} disabled={salvando}>
             Salvar rascunho
-          </button>
-          <button type="button" className="primary-button" onClick={handleConcluir} disabled={salvando}>
+          </Button>
+          <Button type="button" variant="primary" onClick={handleConcluir} disabled={salvando}>
             Concluir
-          </button>
+          </Button>
         </div>
       </header>
 
