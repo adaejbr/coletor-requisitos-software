@@ -1,10 +1,10 @@
 import { useMemo } from 'react'
-import { Link } from 'react-router-dom'
 import { BasicCard } from '@/components/cards'
 import { Table, type TableColumn } from '@/components/table/Table'
 import { useBriefingForms } from '@/hooks/useBriefingForms'
 import type { FormularioBriefing } from '@/types/briefing'
 import { ButtonLink } from '@/components/buttons/ButtonLink'
+import { Button } from '@/components/buttons/Button'
 
 const formatarData = (iso: string) =>
   new Intl.DateTimeFormat('pt-BR', {
@@ -89,18 +89,17 @@ export default function FormulariosPage() {
       header: 'Ações',
       render: (formulario) => (
         <div className="button-row compact-row">
-          <Link to={`/configuracoes/formularios/${formulario.id}/editar`} className="secondary-button">
+          <ButtonLink to={`/configuracoes/formularios/${formulario.id}/editar`} variant="secondary">
             Editar
-          </Link>
-          <button
-            type="button"
-            className={formulario.ativo ? 'ghost-button' : 'secondary-button'}
+          </ButtonLink>
+          <Button
+            variant={formulario.ativo ? 'danger' : 'secondary'}
             onClick={() =>
               formulario.ativo ? inativarFormulario(formulario.id) : reativarFormulario(formulario.id)
             }
           >
             {formulario.ativo ? 'Inativar' : 'Reativar'}
-          </button>
+          </Button>
         </div>
       ),
     },
