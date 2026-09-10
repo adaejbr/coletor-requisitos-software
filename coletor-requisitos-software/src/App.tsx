@@ -2,6 +2,8 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import HomeTutoriaisPage from './pages/tutoriais/HomeTutoriaisPage'
 import TutorialFuncionalidadeClientesPage from './pages/tutoriais/funcionalidade-clientes/TutorialFuncionalidadeClientesPage'
+import TutorialConfiguracaoFormulariosPage from './pages/tutoriais/formularios-briefing/TutorialConfiguracaoFormulariosPage'
+import TutorialUsoFormulariosPage from './pages/tutoriais/formularios-briefing/TutorialUsoFormulariosPage'
 import ClientesPage from './pages/clientes/ClientesPage'
 import DetalhesAplicacaoPage from './pages/clientes/aplicacoes/VisualizarAplicacaoPage'
 import DetalhesAplicacaoBriefingPage from './pages/clientes/aplicacoes/VisualizarAplicacaoBriefingPage'
@@ -26,6 +28,8 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/tutoriais" element={<HomeTutoriaisPage />} />
         <Route path="/tutoriais/funcionalidade-clientes" element={<TutorialFuncionalidadeClientesPage />} />
+        <Route path="/tutoriais/formularios-briefing/configuracao" element={<TutorialConfiguracaoFormulariosPage />} />
+        <Route path="/tutoriais/formularios-briefing/uso" element={<TutorialUsoFormulariosPage />} />
 
         <Route path="/configuracoes">
           <Route path="formularios" element={<FormulariosPage />} />
