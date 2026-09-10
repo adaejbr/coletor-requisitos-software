@@ -48,7 +48,7 @@ export default function VisualizarFuncionalidadePage() {
           <ButtonLink to={`/clientes/${clienteId}/aplicacoes/${aplicacaoId}/funcionalidades/${funcionalidadeId}/editar`} variant="primary">
             Editar
           </ButtonLink>
-          <ButtonLink to={`/clientes/${clienteId}/aplicacoes/${aplicacaoId}`} variant="secondary">
+          <ButtonLink to={`/clientes/${clienteId}/aplicacoes/${aplicacaoId}`} variant="ghost">
             Voltar
           </ButtonLink>
         </div>

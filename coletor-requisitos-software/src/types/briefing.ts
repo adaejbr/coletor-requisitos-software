@@ -48,6 +48,13 @@ export interface FormularioBriefing {
   atualizadoEm: string
 }
 
+export type FormularioConcluido = {
+  id: string
+  nome: string
+  descricao?: string
+  concluidoEm: string
+}
+
 export interface RespostaBriefing {
   id: string
   idCliente: string

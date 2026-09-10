@@ -25,7 +25,7 @@ export default function TutorialFuncionalidadeClientesPage() {
           <p className="eyebrow">Documentação</p>
           <h1>Tutorial de utilização</h1>
         </div>
-        <ButtonLink to="/" variant="secondary">
+        <ButtonLink to="/" variant="ghost">
           Voltar para o início
         </ButtonLink>
       </div>

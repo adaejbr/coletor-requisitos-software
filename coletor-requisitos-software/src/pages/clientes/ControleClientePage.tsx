@@ -100,7 +100,7 @@ export default function NovoClientePage() {
           <p className="eyebrow">Cliente</p>
           <h1>{isEditMode ? 'Editar Cliente' : 'Novo Cliente'}</h1>
         </div>
-        <ButtonLink to={cancelarPath} variant="secondary">
+        <ButtonLink to={cancelarPath} variant="ghost">
           Voltar
         </ButtonLink>
       </div>

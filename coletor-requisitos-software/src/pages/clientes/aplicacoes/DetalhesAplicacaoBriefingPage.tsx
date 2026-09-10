@@ -1,10 +1,11 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 import { useEffect, useMemo, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { FormularioBriefingRenderer } from '@/components/briefing/FormularioBriefingRenderer'
 import { useBriefingForms } from '@/hooks/useBriefingForms'
 import { useBriefingResponses } from '@/hooks/useBriefingResponses'
 import type { FormularioBriefing, RespostaBriefing } from '@/types/briefing'
+import { ButtonLink } from '@/components/buttons'
 
 export default function DetalhesAplicacaoBriefingPage() {
   const { clienteId, aplicacaoId } = useParams()
@@ -107,9 +108,9 @@ export default function DetalhesAplicacaoBriefingPage() {
           <p className="eyebrow">Aplicação</p>
           <h1>Formulários de briefing</h1>
         </div>
-        <Link to={`/clientes/${clienteId}`} className="secondary-button">
+        <ButtonLink to={`/clientes/${clienteId}`} variant="ghost">
           Voltar
-        </Link>
+        </ButtonLink>
       </div>
 
       <div className="briefing-dashboard">

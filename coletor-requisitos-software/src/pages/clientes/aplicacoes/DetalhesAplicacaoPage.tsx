@@ -1,17 +1,152 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useToast } from '@/components/toast-provider/ToastProvider'
 import { Button, ButtonLink } from '@/components/buttons'
 import { BasicCard } from '@/components/cards'
 import { exportarAplicacaoJson, exportarAplicacaoPdf } from '@/services/exportService'
 import { storageService } from '@/services/storageService'
-import type { Aplicacao } from '@/types'
+import type { Aplicacao, FormularioBriefing, FormularioConcluido, RespostaBriefing } from '@/types'
+import { Table, type TableColumn } from '@/components/table/Table'
+import { formatarData } from '@/utils/dateFormatter'
+import { useBriefingForms } from '@/hooks/useBriefingForms'
+import { useBriefingResponses } from '@/hooks/useBriefingResponses'
 
 export default function DetalhesAplicacaoPage() {
   const { clienteId, aplicacaoId } = useParams()
   const navigate = useNavigate()
   const { showToast } = useToast()
   const [aplicacao, setAplicacao] = useState<Aplicacao | null>(null)
+
+  const { formularios, loading: loadingForms } = useBriefingForms()
+  const { respostas, loading: loadingResponses } = useBriefingResponses(clienteId, aplicacaoId)
+
+  const respostasPorFormulario = useMemo(() => {
+    const mapa = new Map<string, RespostaBriefing[]>()
+
+    respostas.forEach((resposta) => {
+      if (!mapa.has(resposta.idFormulario)) {
+        mapa.set(resposta.idFormulario, [])
+      }
+
+      mapa.get(resposta.idFormulario)?.push(resposta)
+    })
+
+    return mapa
+  }, [respostas])
+
+  const formulariosPendentes = useMemo(
+    () =>
+      formularios.filter((formulario) => {
+        if (!formulario.ativo) {
+          return false
+        }
+
+        const respostasDoFormulario = respostasPorFormulario.get(formulario.id) ?? []
+        return !respostasDoFormulario.some((resposta) => resposta.status === 'concluido')
+      }),
+    [formularios, respostasPorFormulario],
+  )
+
+  const formulariosConcluidos = useMemo<FormularioConcluido[]>(
+    () =>
+      formularios
+        .filter((formulario) => {
+          if (!formulario.ativo) {
+            return false
+          }
+
+          const respostasDoFormulario = respostasPorFormulario.get(formulario.id) ?? []
+          return respostasDoFormulario.some((resposta) => resposta.status === 'concluido')
+        })
+        .map((formulario) => {
+          const respostasDoFormulario = respostasPorFormulario.get(formulario.id) ?? []
+          const respostaConcluida = [...respostasDoFormulario]
+            .filter((resposta) => resposta.status === 'concluido')
+            .sort(
+              (a, b) =>
+                new Date(b.concluidoEm ?? b.atualizadoEm).getTime() -
+                new Date(a.concluidoEm ?? a.atualizadoEm).getTime(),
+            )[0]
+
+          return {
+            id: formulario.id,
+            nome: formulario.nome,
+            descricao: formulario.descricao,
+            concluidoEm: respostaConcluida?.concluidoEm ?? respostaConcluida?.atualizadoEm ?? formulario.atualizadoEm,
+          }
+        }),
+    [formularios, respostasPorFormulario],
+  )
+
+  const columnsPendentes: TableColumn<FormularioBriefing>[] = [
+    {
+      key: 'nome',
+      header: 'Nome',
+      render: (formulario) => (
+        <>
+          <strong>{formulario.nome}</strong>
+          {formulario.descricao && <div className="muted-text">{formulario.descricao}</div>}
+        </>
+      ),
+    },
+    {
+      key: 'secoes',
+      header: 'Seções',
+      render: (formulario) => formulario.secoes.length,
+      align: 'center',
+    },
+    {
+      key: 'perguntas',
+      header: 'Perguntas',
+      render: (formulario) => formulario.secoes.reduce((contador, secao) => contador + secao.perguntas.length, 0),
+      align: 'center',
+    },
+    {
+      key: 'atualizadoEm',
+      header: 'Atualizado em',
+      render: (formulario) => formatarData(formulario.atualizadoEm),
+    },
+    {
+      key: 'acoes',
+      header: 'Ações',
+      render: () => (
+        <div className="button-row compact-row">
+          <ButtonLink to={`/clientes/${clienteId}/aplicacoes/${aplicacaoId}/briefing`} variant="secondary">
+            Responder
+          </ButtonLink>
+        </div>
+      ),
+    },
+  ]
+
+  const columnsConcluidos: TableColumn<FormularioConcluido>[] = [
+    {
+      key: 'nome',
+      header: 'Nome',
+      render: (formulario) => (
+        <>
+          <strong>{formulario.nome}</strong>
+          {formulario.descricao && <div className="muted-text">{formulario.descricao}</div>}
+        </>
+      ),
+    },
+    {
+      key: 'concluidoEm',
+      header: 'Concluído em',
+      render: (formulario) => formatarData(formulario.concluidoEm),
+    },
+    {
+      key: 'acoes',
+      header: 'Ações',
+      render: () => (
+        <div className="button-row compact-row">
+          <ButtonLink to={`/clientes/${clienteId}/aplicacoes/${aplicacaoId}/briefing`} variant="secondary">
+            Visualizar
+          </ButtonLink>
+        </div>
+      ),
+    },
+  ]
 
   useEffect(() => {
     const carregarAplicacao = async () => {
@@ -29,11 +164,21 @@ export default function DetalhesAplicacaoPage() {
       setAplicacao(dados)
     }
 
-    carregarAplicacao()
+    void carregarAplicacao()
   }, [aplicacaoId, clienteId, navigate])
 
   if (!aplicacao) {
     return <section className="page"><p>Carregando aplicação...</p></section>
+  }
+
+  if (loadingForms || loadingResponses) {
+    return (
+      <section className="page">
+        <div className="empty-state">
+          <p>Carregando formulários e respostas...</p>
+        </div>
+      </section>
+    )
   }
 
   const handleExportJson = async () => {
@@ -82,7 +227,6 @@ export default function DetalhesAplicacaoPage() {
       <div className="page-header">
         <div>
           <p className="eyebrow">Aplicação</p>
-          <h1>{aplicacao.nome}</h1>
         </div>
         <div className="button-row export-actions">
           <Button type="button" variant="secondary" onClick={handleExportJson}>
@@ -94,11 +238,49 @@ export default function DetalhesAplicacaoPage() {
           <ButtonLink to={`/clientes/${clienteId}/aplicacoes/${aplicacaoId}/funcionalidades/nova`} variant="primary">
             Nova Funcionalidade
           </ButtonLink>
-          <ButtonLink to={`/clientes/${clienteId}`} variant="secondary">
+          <ButtonLink to={`/clientes/${clienteId}`} variant="ghost">
             Voltar
           </ButtonLink>
         </div>
       </div>
+
+      <BasicCard>
+        <div className="card-header">
+          <h2>{aplicacao.nome}</h2>
+          <br />
+          <p><strong>ID:</strong> {aplicacao.id}</p>
+          <p><strong>Quantidade de Funcionalidades:</strong> {aplicacao.funcionalidades.length}</p>
+        </div>
+      </BasicCard>
+
+      <BasicCard>
+        <div className="card-header">
+          <h2>Formulários</h2>
+          <p>Todos os formulários ativos pendentes ou concluídos serão apresentados nesta seção.</p>
+        </div>
+        <div className="card-content">
+          <h3>Formulários Pendentes:</h3>
+          <Table
+            columns={columnsPendentes}
+            data={formulariosPendentes}
+            getRowKey={(formulario) => formulario.id}
+            emptyState={<p>Nenhum formulário pendente para esta aplicação.</p>}
+          />
+        </div>
+
+        {formulariosConcluidos.length > 0 && (
+          <div className="card-content">
+            <br />
+            <h3>Formulários concluídos:</h3>
+            <Table
+              columns={columnsConcluidos}
+              data={formulariosConcluidos}
+              getRowKey={(formulario) => formulario.id}
+              emptyState={<p>Nenhum formulário concluído para esta aplicação.</p>}
+            />
+          </div>
+        )}
+      </BasicCard>
 
       <div className="card-grid">
         {aplicacao.funcionalidades.map((funcionalidade) => (

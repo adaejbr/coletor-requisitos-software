@@ -351,7 +351,7 @@ export default function NovaFuncionalidadePage() {
           <p className="eyebrow">Funcionalidade</p>
           <h1>{isEditMode ? 'Editar Funcionalidade' : 'Nova Funcionalidade'}</h1>
         </div>
-        <ButtonLink to={`/clientes/${clienteId}/aplicacoes/${aplicacaoId}`} variant="secondary">
+        <ButtonLink to={`/clientes/${clienteId}/aplicacoes/${aplicacaoId}`} variant="ghost">
           Voltar
         </ButtonLink>
       </div>
