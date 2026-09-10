@@ -1,4 +1,4 @@
-import { NavLink, Navigate, Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import { Breadcrumbs } from './components/Breadcrumbs'
 import HomePage from './pages/HomePage'
 import HomeTutoriaisPage from './pages/tutoriais/HomeTutoriaisPage'
@@ -14,36 +14,13 @@ import NovoClientePage from './pages/clientes/NovoClientePage'
 import VisualizarFuncionalidadePage from './pages/clientes/VisualizarFuncionalidadePage'
 import FormularioBriefingPage from './pages/configuracoes/FormularioBriefingPage'
 import FormulariosPage from './pages/configuracoes/FormulariosPage'
+import { Header } from './components/header/Header'
 import './App.css'
 
 function App() {
   return (
     <main className="app-shell">
-      <header className="topbar">
-        <div className="brand-block">
-          <span className="brand-mark">CR</span>
-          <div>
-            <p className="brand-label">Coletor</p>
-            <strong>Requisitos</strong>
-          </div>
-        </div>
-
-        <nav className="topnav" aria-label="Navegação principal">
-          <NavLink to="/" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
-            Início
-          </NavLink>
-          <NavLink to="/clientes" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
-            Clientes
-          </NavLink>
-          <NavLink to="/configuracoes/formularios" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
-            Configuração
-          </NavLink>
-          <NavLink to="/tutoriais" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
-            Tutoriais
-          </NavLink>
-        </nav>
-      </header>
-
+      <Header />
       <Breadcrumbs />
       <Routes>
         <Route path="/" element={<HomePage />} />
