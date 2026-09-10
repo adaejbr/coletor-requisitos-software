@@ -12,12 +12,13 @@ import NovaAplicacaoPage from './pages/clientes/aplicacoes/ControleAplicacaoPage
 import NovaFuncionalidadePage from './pages/clientes/funcionalidades/ControleFuncionalidadePage'
 import NovoClientePage from './pages/clientes/ControleClientePage'
 import VisualizarFuncionalidadePage from './pages/clientes/funcionalidades/VisualizarFuncionalidadePage'
-import FormularioBriefingPage from './pages/configuracoes/FormularioBriefingPage'
-import FormulariosPage from './pages/configuracoes/FormulariosPage'
+import FormularioBriefingPage from './pages/configuracoes/formularios/FormularioBriefingPage'
+import FormulariosPage from './pages/configuracoes/formularios/FormulariosPage'
 import { Header } from './components/header/Header'
 import './App.css'
 import './styles/shared.css'
 import { Breadcrumbs } from './components/breadcrumbs/Breadcrumbs'
+import ConfiguracaoPage from './pages/configuracoes/ConfiguracaoPage'
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
         </Route>
 
         <Route path="/configuracoes">
+          <Route path="" element={<ConfiguracaoPage />} />
           <Route path="formularios" element={<FormulariosPage />} />
           <Route path="formularios/novo" element={<FormularioBriefingPage />} />
           <Route path="formularios/:idFormulario/editar" element={<FormularioBriefingPage />} />

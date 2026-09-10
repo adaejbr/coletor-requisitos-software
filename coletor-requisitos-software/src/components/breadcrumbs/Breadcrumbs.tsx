@@ -1,66 +1,6 @@
 import { Link, useLocation } from 'react-router-dom'
+import { buildBreadcrumbs } from '../../config/breadcrumbs'
 import './Breadcrumbs.css'
-
-type BreadcrumbItem = {
-  label: string
-  to: string
-}
-
-const buildBreadcrumbs = (pathname: string): BreadcrumbItem[] => {
-  const segments = pathname.split('/').filter(Boolean)
-
-  if (segments.length === 0) {
-    return [{ label: 'Início', to: '/' }]
-  }
-
-  const breadcrumbs: BreadcrumbItem[] = [{ label: 'Início', to: '/' }]
-  let currentPath = ''
-
-  for (const [index, segment] of segments.entries()) {
-    currentPath += `/${segment}`
-
-    if (segment === 'clientes') {
-      breadcrumbs.push({ label: 'Clientes', to: currentPath })
-      continue
-    }
-
-    if (segment === 'novo') {
-      breadcrumbs.push({ label: 'Novo', to: currentPath })
-      continue
-    }
-
-    if (segment === 'editar') {
-      breadcrumbs.push({ label: 'Editar', to: currentPath })
-      continue
-    }
-
-    if (segment === 'visualizar') {
-      breadcrumbs.push({ label: 'Visualizar', to: currentPath })
-      continue
-    }
-
-    if (segment === 'nova') {
-      breadcrumbs.push({ label: 'Novo', to: currentPath })
-      continue
-    }
-
-    if (index === 1 && segment !== 'clientes') {
-      breadcrumbs.push({ label: 'Cliente', to: currentPath })
-      continue
-    }
-
-    if (index === 3 && segment !== 'aplicacoes') {
-      breadcrumbs.push({ label: 'Aplicação', to: currentPath })
-      continue
-    }
-
-    if (index === 5 && segment !== 'funcionalidades') {
-      breadcrumbs.push({ label: 'Funcionalidade', to: currentPath })
-    }
-  }
-
-  return breadcrumbs
-}
 
 export function Breadcrumbs() {
   const location = useLocation()

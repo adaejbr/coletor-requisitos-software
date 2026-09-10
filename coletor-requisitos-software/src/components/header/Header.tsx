@@ -20,7 +20,7 @@ export function Header() {
                 <NavLink to="/clientes" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
                     Clientes
                 </NavLink>
-                <NavLink to="/configuracoes/formularios" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
+                <NavLink to="/configuracoes" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
                     Configuração
                 </NavLink>
                 <NavLink to="/tutoriais" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
