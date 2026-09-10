@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 import { useEffect, useMemo, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import type { FormularioBriefing, PerguntaBriefing, SecaoBriefing } from '../../types/briefing'

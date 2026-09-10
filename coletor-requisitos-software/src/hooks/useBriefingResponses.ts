@@ -45,7 +45,15 @@ export function useBriefingResponses(idCliente?: string, idAplicacao?: string) {
 
   const concluirResposta = useCallback(async (resposta: RespostaBriefing) => {
     const saved = await briefingResponseRepository.concluir(resposta)
-    setRespostas((prev) => prev.map((item) => (item.id === saved.id ? saved : item)))
+    setRespostas((prev) => {
+      const index = prev.findIndex((item) => item.id === saved.id)
+
+      if (index === -1) {
+        return [...prev, saved]
+      }
+
+      return prev.map((item) => (item.id === saved.id ? saved : item))
+    })
     return saved
   }, [])
 

@@ -5,6 +5,7 @@ import HomeTutoriaisPage from './pages/tutoriais/HomeTutoriaisPage'
 import TutorialFuncionalidadeClientesPage from './pages/tutoriais/TutorialFuncionalidadeClientesPage'
 import ClientesPage from './pages/clientes/ClientesPage'
 import DetalhesAplicacaoPage from './pages/clientes/DetalhesAplicacaoPage'
+import DetalhesAplicacaoBriefingPage from './pages/clientes/DetalhesAplicacaoBriefingPage'
 import DetalhesClientePage from './pages/clientes/DetalhesClientePage'
 import EditarFuncionalidadePage from './pages/clientes/EditarFuncionalidadePage'
 import NovaAplicacaoPage from './pages/clientes/NovaAplicacaoPage'
@@ -65,6 +66,7 @@ function App() {
               <Route path="nova" element={<NovaAplicacaoPage />} />
               <Route path=":aplicacaoId">
                 <Route index element={<DetalhesAplicacaoPage />} />
+                <Route path="briefing" element={<DetalhesAplicacaoBriefingPage />} />
                 <Route path="editar" element={<NovaAplicacaoPage />} />
                 <Route path="funcionalidades">
                   <Route path="nova" element={<NovaFuncionalidadePage />} />

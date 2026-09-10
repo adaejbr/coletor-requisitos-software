@@ -715,6 +715,138 @@ textarea {
   color: #166534;
 }
 
+.briefing-dashboard {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.briefing-sidebar {
+  display: grid;
+  gap: 18px;
+}
+
+.stack-list {
+  display: grid;
+  gap: 10px;
+}
+
+.list-button {
+  display: grid;
+  gap: 4px;
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #dfe3ef;
+  border-radius: 10px;
+  background: #fff;
+  text-align: left;
+  cursor: pointer;
+}
+
+.list-button.selected {
+  border-color: #4f46e5;
+  background: #eef2ff;
+}
+
+.list-button span {
+  color: #475569;
+  font-size: 0.8rem;
+}
+
+.briefing-panel {
+  display: grid;
+  gap: 20px;
+  padding: 20px;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.04);
+}
+
+.briefing-panel__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.briefing-form {
+  display: grid;
+  gap: 18px;
+}
+
+.briefing-section {
+  display: grid;
+  gap: 16px;
+  padding: 18px;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  background: #f8fafc;
+}
+
+.briefing-section__header {
+  display: grid;
+  gap: 6px;
+}
+
+.briefing-section__header h3 {
+  margin: 0;
+}
+
+.briefing-section__header p {
+  margin: 0;
+  color: #475569;
+}
+
+.briefing-question-list {
+  display: grid;
+  gap: 16px;
+}
+
+.briefing-question {
+  display: grid;
+  gap: 8px;
+  color: #0f172a;
+  font-weight: 600;
+}
+
+.briefing-question small {
+  color: #64748b;
+  font-weight: 400;
+}
+
+.briefing-question--group {
+  border: 1px solid #dfe3ef;
+  border-radius: 12px;
+  padding: 14px;
+  background: #fff;
+}
+
+.briefing-question--group legend {
+  padding: 0 6px;
+}
+
+.option-stack {
+  display: grid;
+  gap: 10px;
+}
+
+.option-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+}
+
+.option-row input {
+  width: auto;
+}
+
+.required-marker {
+  color: #dc2626;
+}
+
 .validation-panel {
   border: 1px solid #fecaca;
   background: #fff1f2;

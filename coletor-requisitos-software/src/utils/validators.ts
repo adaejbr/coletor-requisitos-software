@@ -174,6 +174,35 @@ export function validarRespostaBriefing(resposta: unknown): RespostaBriefing {
   return respostaBriefingSchema.parse(resposta) as RespostaBriefing
 }
 
+export function validarRespostasObrigatoriasBriefing(
+  formulario: FormularioBriefing,
+  respostas: Record<string, unknown>,
+): string[] {
+  const erros: string[] = []
+
+  formulario.secoes
+    .filter((secao) => secao.ativo)
+    .forEach((secao) => {
+      secao.perguntas
+        .filter((pergunta) => pergunta.ativo && pergunta.obrigatoria)
+        .forEach((pergunta) => {
+          const valor = respostas[pergunta.id]
+          const valorVazio =
+            typeof valor === 'undefined' ||
+            valor === null ||
+            valor === '' ||
+            (Array.isArray(valor) && valor.length === 0) ||
+            (typeof valor === 'boolean' && !valor)
+
+          if (valorVazio) {
+            erros.push(`A pergunta "${pergunta.enunciado}" é obrigatória.`)
+          }
+        })
+    })
+
+  return erros
+}
+
 export function validarConfiguracaoFormularioBriefing(formulario: FormularioBriefing): string[] {
   const erros: string[] = []
 
