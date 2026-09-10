@@ -19,6 +19,9 @@ export default function FormulariosPage() {
     [formularios],
   )
 
+  const totalAtivos = formularios.filter((formulario) => formulario.ativo).length
+  const totalInativos = formularios.length - totalAtivos
+
   if (loading) {
     return (
       <section className="page">
@@ -57,6 +60,14 @@ export default function FormulariosPage() {
           <strong>{formularios.length}</strong>
         </div>
         <div className="info-card small-stat">
+          <span>Ativos</span>
+          <strong>{totalAtivos}</strong>
+        </div>
+        <div className="info-card small-stat">
+          <span>Inativos</span>
+          <strong>{totalInativos}</strong>
+        </div>
+        <div className="info-card small-stat">
           <span>Perguntas</span>
           <strong>{totalPerguntas}</strong>
         </div>
@@ -89,7 +100,11 @@ export default function FormulariosPage() {
                   </td>
                   <td>{formulario.secoes.length}</td>
                   <td>{totalPerguntasFormulario}</td>
-                  <td>{formulario.ativo ? 'Ativo' : 'Inativo'}</td>
+                  <td>
+                    <span className={`status-badge ${formulario.ativo ? 'status-active' : 'status-inactive'}`}>
+                      {formulario.ativo ? 'Ativo' : 'Inativo'}
+                    </span>
+                  </td>
                   <td>{formatarData(formulario.atualizadoEm)}</td>
                   <td>
                     <div className="button-row compact-row">
@@ -115,7 +130,8 @@ export default function FormulariosPage() {
 
         {formularios.length === 0 && (
           <div className="empty-state">
-            <p>Nenhum formulário cadastrado. Crie o primeiro briefing.</p>
+            <strong>Nenhum formulário cadastrado.</strong>
+            <p>Crie o primeiro briefing para começar a organização de perguntas e seções.</p>
           </div>
         )}
       </div>

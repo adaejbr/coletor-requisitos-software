@@ -167,6 +167,13 @@ export function FormularioBriefingBuilder({
         </select>
       </label>
 
+      {!formulario.ativo && (
+        <div className="info-panel" role="status">
+          <strong>Este formulário está inativo.</strong>
+          <span>Ele não aparece para preenchimento até ser reativado.</span>
+        </div>
+      )}
+
       {formulario.ativo && errosValidacao.length > 0 && (
         <div className="validation-panel" role="alert">
           <strong>Não foi possível ativar este formulário:</strong>
@@ -175,6 +182,13 @@ export function FormularioBriefingBuilder({
               <li key={erro}>{erro}</li>
             ))}
           </ul>
+        </div>
+      )}
+
+      {formulario.ativo && errosValidacao.length === 0 && (
+        <div className="success-panel" role="status">
+          <strong>Formulário pronto para uso.</strong>
+          <span>Seções e perguntas válidas; este formulário pode ser salvo e disponibilizado.</span>
         </div>
       )}
 

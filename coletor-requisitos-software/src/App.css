@@ -671,12 +671,52 @@ textarea {
   font-size: 0.8rem;
 }
 
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 82px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.status-active {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status-inactive {
+  background: #f3f4f6;
+  color: #4b5563;
+}
+
+.info-panel,
+.success-panel,
 .validation-panel {
   display: grid;
-  gap: 8px;
+  gap: 6px;
   padding: 14px 16px;
-  border: 1px solid #fecaca;
   border-radius: 12px;
+}
+
+.info-panel {
+  border: 1px solid #dbeafe;
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.success-panel {
+  border: 1px solid #bbf7d0;
+  background: #f0fdf4;
+  color: #166534;
+}
+
+.validation-panel {
+  border: 1px solid #fecaca;
   background: #fff1f2;
   color: #9f1239;
 }
