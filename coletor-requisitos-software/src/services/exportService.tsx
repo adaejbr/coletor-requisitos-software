@@ -237,8 +237,8 @@ export const AplicacaoPDF = ({ cliente, aplicacao }: { cliente: Cliente; aplicac
                         ? entidade.relacionamentos
                             .map(
                               (relacionamento) =>
-                                `${relacionamento.entidadeOrigemId} → ${relacionamento.entidadeDestinoId}`,
-                            )
+                                `${relacionamento.entidadeOrigem} (${relacionamento.entidadeOrigemId}) → ${relacionamento.entidadeDestino} (${relacionamento.entidadeDestinoId})`,
+                              )
                             .join('; ')
                         : 'Nenhum relacionamento definido'}
                     </Text>

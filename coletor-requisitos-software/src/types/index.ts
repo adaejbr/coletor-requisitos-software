@@ -10,7 +10,9 @@ export interface Usuario {
 
 export interface RelacionamentoEntidade {
   entidadeOrigemId: string
+  entidadeOrigem?: string
   entidadeDestinoId: string
+  entidadeDestino?: string
 }
 
 export interface Entidade {

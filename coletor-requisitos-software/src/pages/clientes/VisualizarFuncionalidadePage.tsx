@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { storageService } from '../../services/storageService'
 import type { Funcionalidade } from '../../types'
+import { CardEntity } from './components/CardEntity'
 
 export default function VisualizarFuncionalidadePage() {
   const { clienteId, aplicacaoId, funcionalidadeId } = useParams()
@@ -16,6 +17,19 @@ export default function VisualizarFuncionalidadePage() {
 
     carregarFuncionalidade()
   }, [aplicacaoId, clienteId, funcionalidadeId])
+
+  const getNomeEntidadeRelacionada = (entidadeId?: string, nome?: string) => {
+    if (!funcionalidade) {
+      return nome ?? 'Entidade relacionada'
+    }
+
+    const entidadeRel = funcionalidade.entidades.find((entidade) => entidade.id === entidadeId)
+    if (entidadeRel) {
+      return entidadeRel.nome
+    }
+
+    return nome ?? 'Entidade relacionada'
+  }
 
   if (!funcionalidade) {
     return <section className="page"><p>Carregando funcionalidade...</p></section>
@@ -59,13 +73,11 @@ export default function VisualizarFuncionalidadePage() {
 
         <div className="detail-block">
           <h3>Entidades</h3>
-          <ul>
+          <div className="entity-visualization">
             {funcionalidade.entidades.map((entidade) => (
-              <li key={entidade.id}>
-                {entidade.nome}: {entidade.campos.join(', ')}
-              </li>
+              <CardEntity entidade={entidade} getNomeEntidadeRelacionada={getNomeEntidadeRelacionada} />
             ))}
-          </ul>
+          </div>
         </div>
       </div>
     </section>

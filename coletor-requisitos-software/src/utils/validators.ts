@@ -20,7 +20,9 @@ export const usuarioSchema = z.object({
 
 export const relacionamentoEntidadeSchema = z.object({
   entidadeOrigemId: z.string().trim().min(1, 'A entidade de origem é obrigatória.'),
+  entidadeOrigem: z.string().trim().optional(),
   entidadeDestinoId: z.string().trim().min(1, 'A entidade de destino é obrigatória.'),
+  entidadeDestino: z.string().trim().optional(),
 })
 
 export const entidadeSchema = z.object({
@@ -82,6 +84,7 @@ export function validarEntidade(entidade: unknown): Entidade {
 }
 
 export function validarRelacionamento(relacionamento: unknown): RelacionamentoEntidade {
+  console.log('Validando relacionamento:', relacionamento);
   return relacionamentoEntidadeSchema.parse(relacionamento) as RelacionamentoEntidade
 }
 
