@@ -20,22 +20,38 @@ export default function DetalhesAplicacaoBriefingPage() {
     [formularios],
   )
 
+  const respostasPorFormulario = useMemo(() => {
+    const mapa = new Map<string, RespostaBriefing[]>()
+
+    respostas.forEach((resposta) => {
+      if (!mapa.has(resposta.idFormulario)) {
+        mapa.set(resposta.idFormulario, [])
+      }
+
+      mapa.get(resposta.idFormulario)?.push(resposta)
+    })
+
+    return mapa
+  }, [respostas])
+
   const pendentes = useMemo(
     () =>
       formulariosAtivos.filter((formulario) => {
-        const resposta = respostas.find((item) => item.idFormulario === formulario.id && item.status === 'concluido')
-        return !resposta
+        const respostasDoFormulario = respostasPorFormulario.get(formulario.id) ?? []
+        const respostaConcluida = respostasDoFormulario.some((resposta) => resposta.status === 'concluido')
+
+        return !respostaConcluida
       }),
-    [formulariosAtivos, respostas],
+    [formulariosAtivos, respostasPorFormulario],
   )
 
   const preenchidos = useMemo(
     () =>
       formulariosAtivos.filter((formulario) => {
-        const resposta = respostas.find((item) => item.idFormulario === formulario.id && item.status === 'concluido')
-        return !!resposta
+        const respostasDoFormulario = respostasPorFormulario.get(formulario.id) ?? []
+        return respostasDoFormulario.some((resposta) => resposta.status === 'concluido')
       }),
-    [formulariosAtivos, respostas],
+    [formulariosAtivos, respostasPorFormulario],
   )
 
   useEffect(() => {
@@ -45,7 +61,15 @@ export default function DetalhesAplicacaoBriefingPage() {
   }, [formularioSelecionado, pendentes])
 
   const obterRespostaAtual = (formulario: FormularioBriefing): RespostaBriefing | null => {
-    return respostas.find((resposta) => resposta.idFormulario === formulario.id) ?? null
+    const respostasDoFormulario = respostasPorFormulario.get(formulario.id) ?? []
+
+    if (respostasDoFormulario.length === 0) {
+      return null
+    }
+
+    return [...respostasDoFormulario].sort(
+      (a, b) => new Date(b.atualizadoEm).getTime() - new Date(a.atualizadoEm).getTime(),
+    )[0]
   }
 
   const handleSalvarRascunho = async (resposta: RespostaBriefing) => {
@@ -104,7 +128,9 @@ export default function DetalhesAplicacaoBriefingPage() {
                     onClick={() => setFormularioSelecionado(formulario)}
                   >
                     <strong>{formulario.nome}</strong>
-                    <span>{formulario.secoes.length} seções</span>
+                    <span>
+                      {obterRespostaAtual(formulario)?.status === 'rascunho' ? 'Rascunho em andamento' : `${formulario.secoes.length} seções`}
+                    </span>
                   </button>
                 ))}
               </div>
@@ -125,7 +151,7 @@ export default function DetalhesAplicacaoBriefingPage() {
                     onClick={() => setFormularioSelecionado(formulario)}
                   >
                     <strong>{formulario.nome}</strong>
-                    <span>Visualizar</span>
+                    <span>Visualizar / editar</span>
                   </button>
                 ))}
               </div>

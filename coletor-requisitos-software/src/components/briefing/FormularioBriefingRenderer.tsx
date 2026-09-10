@@ -27,6 +27,7 @@ export function FormularioBriefingRenderer({
   const [respostas, setRespostas] = useState<Record<string, unknown>>(respostaInicial?.respostas ?? {})
   const [salvando, setSalvando] = useState(false)
   const [erroValidacao, setErroValidacao] = useState<string | null>(null)
+  const estadoResposta = respostaInicial?.status ?? 'novo'
 
   useEffect(() => {
     setRespostas(respostaInicial?.respostas ?? {})
@@ -116,6 +117,11 @@ export function FormularioBriefingRenderer({
         <div>
           <p className="eyebrow">Briefing</p>
           <h2>{formulario.nome}</h2>
+          <p className="muted-text">
+            {estadoResposta === 'rascunho' && 'Resposta em rascunho'}
+            {estadoResposta === 'concluido' && 'Resposta concluída'}
+            {estadoResposta === 'novo' && 'Novo preenchimento'}
+          </p>
         </div>
         <div className="button-row">
           <button type="button" className="secondary-button" onClick={handleSalvarRascunho} disabled={salvando}>
