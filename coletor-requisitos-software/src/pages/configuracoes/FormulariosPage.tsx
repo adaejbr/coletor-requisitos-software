@@ -4,6 +4,7 @@ import { BasicCard } from '@/components/cards'
 import { Table, type TableColumn } from '@/components/table/Table'
 import { useBriefingForms } from '@/hooks/useBriefingForms'
 import type { FormularioBriefing } from '@/types/briefing'
+import { ButtonLink } from '@/components/buttons/ButtonLink'
 
 const formatarData = (iso: string) =>
   new Intl.DateTimeFormat('pt-BR', {
@@ -112,9 +113,9 @@ export default function FormulariosPage() {
           <p className="eyebrow">Configurações</p>
           <h1>Formulários de briefing</h1>
         </div>
-        <Link to="/configuracoes/formularios/novo" className="primary-button">
+        <ButtonLink to="/configuracoes/formularios/novo" className="primary-button">
           Novo formulário
-        </Link>
+        </ButtonLink>
       </div>
 
       <div className="stats-grid">

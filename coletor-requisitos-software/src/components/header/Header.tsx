@@ -4,6 +4,7 @@ import './Header.css'
 export function Header() {
     return(
         <header className="topbar">
+            <title>Coletor de Requisitos - ADA EJ</title>
             <div className="brand-block">
                 <span className="brand-mark">CR</span>
                 <div>
