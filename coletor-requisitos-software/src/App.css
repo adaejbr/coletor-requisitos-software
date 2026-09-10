@@ -671,6 +671,21 @@ textarea {
   font-size: 0.8rem;
 }
 
+.validation-panel {
+  display: grid;
+  gap: 8px;
+  padding: 14px 16px;
+  border: 1px solid #fecaca;
+  border-radius: 12px;
+  background: #fff1f2;
+  color: #9f1239;
+}
+
+.validation-panel ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
 .panel-section {
   display: grid;
   gap: 14px;

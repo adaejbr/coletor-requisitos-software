@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import type { FormularioBriefing, PerguntaBriefing, SecaoBriefing } from '../../types/briefing'
+import { validarConfiguracaoFormularioBriefing } from '../../utils/validators'
 import { SecaoBriefingBuilder } from './SecaoBriefingBuilder'
 
 type FormularioBriefingBuilderProps = {
@@ -45,6 +46,11 @@ export function FormularioBriefingBuilder({
   onCancel,
 }: FormularioBriefingBuilderProps) {
   const [formulario, setFormulario] = useState<FormularioBriefing>(initialFormulario)
+
+  const errosValidacao = useMemo(
+    () => validarConfiguracaoFormularioBriefing(formulario),
+    [formulario],
+  )
 
   useEffect(() => {
     setFormulario(initialFormulario)
@@ -118,6 +124,12 @@ export function FormularioBriefingBuilder({
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
+    const erros = validarConfiguracaoFormularioBriefing(formulario)
+
+    if (formulario.ativo && erros.length > 0) {
+      return
+    }
+
     const formularioFinal = serializarFormulario(formulario)
     await onSave(formularioFinal)
   }
@@ -155,6 +167,17 @@ export function FormularioBriefingBuilder({
         </select>
       </label>
 
+      {formulario.ativo && errosValidacao.length > 0 && (
+        <div className="validation-panel" role="alert">
+          <strong>Não foi possível ativar este formulário:</strong>
+          <ul>
+            {errosValidacao.map((erro) => (
+              <li key={erro}>{erro}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       <div className="button-row">
         <button type="button" className="secondary-button" onClick={adicionarSecao}>
           + Adicionar seção
@@ -183,7 +206,7 @@ export function FormularioBriefingBuilder({
       </div>
 
       <div className="button-row">
-        <button type="submit" className="primary-button">
+        <button type="submit" className="primary-button" disabled={formulario.ativo && errosValidacao.length > 0}>
           Salvar formulário
         </button>
         {onCancel && (

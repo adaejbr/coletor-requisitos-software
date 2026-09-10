@@ -173,3 +173,49 @@ export function validarFormularioBriefing(formulario: unknown): FormularioBriefi
 export function validarRespostaBriefing(resposta: unknown): RespostaBriefing {
   return respostaBriefingSchema.parse(resposta) as RespostaBriefing
 }
+
+export function validarConfiguracaoFormularioBriefing(formulario: FormularioBriefing): string[] {
+  const erros: string[] = []
+
+  if (!formulario.nome.trim()) {
+    erros.push('O nome do formulário é obrigatório.')
+  }
+
+  if (!formulario.ativo) {
+    return erros
+  }
+
+  const secoesAtivas = formulario.secoes.filter((secao) => secao.ativo)
+
+  if (secoesAtivas.length === 0) {
+    erros.push('Para ativar o formulário, é necessário ter pelo menos uma seção ativa.')
+  }
+
+  secoesAtivas.forEach((secao, index) => {
+    if (!secao.titulo.trim()) {
+      erros.push(`A seção ${index + 1} ativa precisa de um título.`)
+    }
+
+    const perguntasAtivas = secao.perguntas.filter((pergunta) => pergunta.ativo)
+
+    if (perguntasAtivas.length === 0) {
+      erros.push(`A seção "${secao.titulo || `#${index + 1}`}" precisa ter pelo menos uma pergunta ativa.`)
+    }
+
+    perguntasAtivas.forEach((pergunta, perguntaIndex) => {
+      if (!pergunta.enunciado.trim()) {
+        erros.push(`A pergunta ${perguntaIndex + 1} da seção "${secao.titulo || `#${index + 1}`}" precisa de enunciado.`)
+      }
+
+      if (!pergunta.tipo) {
+        erros.push(`A pergunta ${perguntaIndex + 1} da seção "${secao.titulo || `#${index + 1}`}" precisa ter um tipo.`)
+      }
+
+      if (['select', 'radio', 'checkbox'].includes(pergunta.tipo) && (!pergunta.opcoes || pergunta.opcoes.length === 0)) {
+        erros.push(`A pergunta "${pergunta.enunciado || `#${perguntaIndex + 1}`}" do tipo ${pergunta.tipo} precisa de opções.`)
+      }
+    })
+  })
+
+  return [...new Set(erros)]
+}
