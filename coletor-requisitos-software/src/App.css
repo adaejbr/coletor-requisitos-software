@@ -48,16 +48,6 @@ h3 {
   gap: 20px;
 }
 
-.info-card,
-.form-card,
-.detail-card {
-  background: #fff;
-  border: 1px solid #e5e7eb;
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
-}
-
 .detail-block {
   margin-top: 20px;
 }
@@ -67,62 +57,6 @@ h3 {
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 18px;
   margin-top: 14px;
-}
-
-.entity-card {
-  border: 1px solid #dfe3ef;
-  border-radius: 16px;
-  background: linear-gradient(180deg, #ffffff 0%, #f9fafb 100%);
-  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.04);
-  overflow: hidden;
-}
-
-.entity-card__header {
-  padding: 14px 16px;
-  background: #eef2ff;
-  border-bottom: 1px solid #dfe3ef;
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: #1f2937;
-}
-
-.entity-card__body {
-  padding: 12px 14px 14px;
-  display: grid;
-  gap: 10px;
-}
-
-.entity-card__attribute-row {
-  padding: 8px 10px;
-  border: 1px solid #e5e7eb;
-  border-radius: 10px;
-  background: #fff;
-  font-size: 0.96rem;
-  color: #334155;
-}
-
-.entity-card__relations {
-  display: grid;
-  gap: 8px;
-  margin-top: 8px;
-  padding-top: 10px;
-  border-top: 1px solid #e5e7eb;
-}
-
-.entity-card__relation-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 10px;
-  border-radius: 10px;
-  background: #f3f4f6;
-  color: #374151;
-  font-size: 0.92rem;
-}
-
-.relation-arrow {
-  font-weight: 700;
-  color: #4f46e5;
 }
 
 .home-page {
@@ -278,12 +212,6 @@ h3 {
   background: #eef2ff;
   color: var(--primary-strong);
   font-weight: 600;
-}
-
-.form-card {
-  display: grid;
-  gap: 16px;
-  max-width: 720px;
 }
 
 label {
@@ -491,11 +419,6 @@ textarea {
 .relationship-actions {
   display: flex;
   justify-content: flex-end;
-}
-
-.detail-card {
-  display: grid;
-  gap: 14px;
 }
 
 .detail-summary {

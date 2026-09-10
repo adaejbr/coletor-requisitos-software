@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { z } from 'zod'
 import { useToast } from '../../components/ToastProvider'
+import { FormCard } from '../../components/cards'
 import { storageService } from '../../services/storageService'
 import { CLIENTE_STATUS } from '../../types'
 
@@ -100,7 +101,7 @@ export default function NovoClientePage() {
         </Link>
       </div>
 
-      <form className="form-card" onSubmit={form.handleSubmit(onSubmit)}>
+      <FormCard onSubmit={form.handleSubmit(onSubmit)}>
         <label>
           Nome
           <input
@@ -135,7 +136,7 @@ export default function NovoClientePage() {
             Cancelar
           </Link>
         </div>
-      </form>
+      </FormCard>
     </section>
   )
 }

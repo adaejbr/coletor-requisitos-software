@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useToast } from '../../components/ToastProvider'
+import { BasicCard } from '../../components/cards'
 import { exportarAplicacaoJson, exportarAplicacaoPdf } from '../../services/exportService'
 import { storageService } from '../../services/storageService'
 import type { Aplicacao } from '../../types'
@@ -100,7 +101,7 @@ export default function DetalhesAplicacaoPage() {
 
       <div className="card-grid">
         {aplicacao.funcionalidades.map((funcionalidade) => (
-          <article key={funcionalidade.id} className="info-card">
+          <BasicCard key={funcionalidade.id}>
             <h2>{funcionalidade.nome}</h2>
             <p>{funcionalidade.descricao}</p>
             <div className="button-row">
@@ -114,7 +115,7 @@ export default function DetalhesAplicacaoPage() {
                 Excluir
               </button>
             </div>
-          </article>
+          </BasicCard>
         ))}
 
         {aplicacao.funcionalidades.length === 0 && (

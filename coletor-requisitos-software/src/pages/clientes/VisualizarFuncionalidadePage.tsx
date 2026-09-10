@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import { CardEntity } from '../../components/cards/card-entity/CardEntity'
+import { DetailCard } from '../../components/cards'
 import { storageService } from '../../services/storageService'
 import type { Funcionalidade } from '../../types'
-import { CardEntity } from './components/CardEntity'
 
 export default function VisualizarFuncionalidadePage() {
   const { clienteId, aplicacaoId, funcionalidadeId } = useParams()
@@ -52,7 +53,7 @@ export default function VisualizarFuncionalidadePage() {
         </div>
       </div>
 
-      <div className="detail-card">
+      <DetailCard>
         <p>
           <strong>Descrição:</strong> {funcionalidade.descricao}
         </p>
@@ -79,7 +80,7 @@ export default function VisualizarFuncionalidadePage() {
             ))}
           </div>
         </div>
-      </div>
+      </DetailCard>
     </section>
   )
 }

@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { z } from 'zod'
 import { useToast } from '../../components/ToastProvider'
+import { FormCard } from '../../components/cards'
 import { storageService } from '../../services/storageService'
 
 const schema = z.object({
@@ -86,7 +87,7 @@ export default function NovaAplicacaoPage() {
         </Link>
       </div>
 
-      <form className="form-card" onSubmit={form.handleSubmit(onSubmit)}>
+      <FormCard onSubmit={form.handleSubmit(onSubmit)}>
         <label>
           Nome da aplicação
           <input
@@ -107,7 +108,7 @@ export default function NovaAplicacaoPage() {
             Cancelar
           </Link>
         </div>
-      </form>
+      </FormCard>
     </section>
   )
 }

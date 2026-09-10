@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { BasicCard } from '../../components/cards'
 
 export default function HomeTutoriaisPage() {
   return (
@@ -9,7 +10,7 @@ export default function HomeTutoriaisPage() {
       </div>
 
       <div className="hub-grid">
-        <article className="info-card home-card">
+        <BasicCard className="home-card">
           <div className="home-card-icon">📚</div>
           <div>
             <h2>Funcionalidade de Clientes</h2>
@@ -18,7 +19,7 @@ export default function HomeTutoriaisPage() {
           <Link to="/tutoriais/funcionalidade-clientes" className="primary-button home-link">
             Abrir tutorial
           </Link>
-        </article>
+        </BasicCard>
       </div>
     </section>
   )

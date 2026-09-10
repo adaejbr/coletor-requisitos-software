@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
+import { BasicCard } from '../../components/cards'
 import { storageService } from '../../services/storageService'
 import type { Cliente } from '../../types'
 
@@ -60,7 +61,7 @@ export default function DetalhesClientePage() {
         </div>
       </div>
 
-      <div className="info-card detail-summary">
+      <BasicCard className="detail-summary">
         <p>
           <strong>Status:</strong> {cliente.status}
         </p>
@@ -72,11 +73,11 @@ export default function DetalhesClientePage() {
             year: 'numeric',
           }).format(new Date(cliente.dataUltimaAlteracao))}
         </p>
-      </div>
+      </BasicCard>
 
       <div className="card-grid">
         {cliente.aplicacoes.map((aplicacao) => (
-          <article key={aplicacao.id} className="info-card">
+          <BasicCard key={aplicacao.id}>
             <h2>{aplicacao.nome}</h2>
             <p>{aplicacao.funcionalidades.length} funcionalidade(s)</p>
             <div className="button-row">
@@ -90,7 +91,7 @@ export default function DetalhesClientePage() {
                 Excluir
               </button>
             </div>
-          </article>
+          </BasicCard>
         ))}
 
         {cliente.aplicacoes.length === 0 && (

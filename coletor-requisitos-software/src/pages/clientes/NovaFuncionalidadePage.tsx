@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { z } from 'zod'
+import { FormCard } from '../../components/cards'
 import { storageService } from '../../services/storageService'
 import type { Funcionalidade } from '../../types'
 
@@ -352,7 +353,7 @@ export default function NovaFuncionalidadePage() {
         </Link>
       </div>
 
-      <form className="form-card" onSubmit={form.handleSubmit(onSubmit)}>
+      <FormCard onSubmit={form.handleSubmit(onSubmit)}>
         <div className="panel-section">
           <h3>Bloco 1 – Informações</h3>
           <label>
@@ -496,7 +497,7 @@ export default function NovaFuncionalidadePage() {
             Cancelar
           </Link>
         </div>
-      </form>
+      </FormCard>
     </section>
   )
 }

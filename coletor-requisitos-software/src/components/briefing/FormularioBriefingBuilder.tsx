@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 import { useEffect, useMemo, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
+import { FormCard } from '../cards'
 import type { FormularioBriefing, PerguntaBriefing, SecaoBriefing } from '../../types/briefing'
 import { validarConfiguracaoFormularioBriefing } from '../../utils/validators'
 import { SecaoBriefingBuilder } from './SecaoBriefingBuilder'
@@ -136,7 +137,7 @@ export function FormularioBriefingBuilder({
   }
 
   return (
-    <form className="form-card" onSubmit={handleSubmit}>
+    <FormCard onSubmit={handleSubmit}>
       <label>
         Nome do formulário
         <input
@@ -230,6 +231,6 @@ export function FormularioBriefingBuilder({
           </button>
         )}
       </div>
-    </form>
+    </FormCard>
   )
 }

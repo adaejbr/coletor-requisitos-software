@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useToast } from '../../components/ToastProvider'
+import { BasicCard } from '../../components/cards'
 import { storageService } from '../../services/storageService'
 import type { Cliente } from '../../types'
 
@@ -68,7 +69,7 @@ export default function ClientesPage() {
 
       <div className="card-grid">
         {clientesFiltrados.map((cliente) => (
-          <article key={cliente.id} className="info-card">
+          <BasicCard key={cliente.id}>
             <h2>{cliente.nome}</h2>
             <p>
               <strong>Status:</strong> {cliente.status}
@@ -87,7 +88,7 @@ export default function ClientesPage() {
                 Excluir
               </button>
             </div>
-          </article>
+          </BasicCard>
         ))}
 
         {clientesFiltrados.length === 0 && (

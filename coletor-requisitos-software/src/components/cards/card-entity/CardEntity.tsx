@@ -1,6 +1,7 @@
 import type { Entidade } from "../../../types";
+import './CardEntity.css';
 
-    export function CardEntity( { entidade, getNomeEntidadeRelacionada }: { entidade: Entidade, getNomeEntidadeRelacionada: (entidadeId?: string, nome?: string) => string } ) {
+export function CardEntity( { entidade, getNomeEntidadeRelacionada }: { entidade: Entidade, getNomeEntidadeRelacionada: (entidadeId?: string, nome?: string) => string } ) {
     return (
         <article key={entidade.id} className="entity-card">
             <header className="entity-card__header">

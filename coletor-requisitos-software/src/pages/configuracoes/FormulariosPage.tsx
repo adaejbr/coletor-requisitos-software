@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
+import { BasicCard } from '../../components/cards'
 import { Table, type TableColumn } from '../../components/table/Table'
 import { useBriefingForms } from '../../hooks/useBriefingForms'
 import type { FormularioBriefing } from '../../types/briefing'
@@ -117,22 +118,22 @@ export default function FormulariosPage() {
       </div>
 
       <div className="stats-grid">
-        <div className="info-card small-stat">
+        <BasicCard className="small-stat">
           <span>Total</span>
           <strong>{formularios.length}</strong>
-        </div>
-        <div className="info-card small-stat">
+        </BasicCard>
+        <BasicCard className="small-stat">
           <span>Ativos</span>
           <strong>{totalAtivos}</strong>
-        </div>
-        <div className="info-card small-stat">
+        </BasicCard>
+        <BasicCard className="small-stat">
           <span>Inativos</span>
           <strong>{totalInativos}</strong>
-        </div>
-        <div className="info-card small-stat">
+        </BasicCard>
+        <BasicCard className="small-stat">
           <span>Perguntas</span>
           <strong>{totalPerguntas}</strong>
-        </div>
+        </BasicCard>
       </div>
 
       <Table
