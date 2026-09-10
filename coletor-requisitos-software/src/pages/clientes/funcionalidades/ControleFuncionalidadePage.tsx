@@ -1,12 +1,14 @@
+/* eslint-disable react-hooks/incompatible-library */
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useEffect, useRef, useState } from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { z } from 'zod'
 import { FormCard } from '@/components/cards'
 import { storageService } from '@/services/storageService'
 import type { Funcionalidade } from '@/types'
 import './ControleFuncionalidadePage.css'
+import { Button, ButtonLink } from '@/components/buttons'
 
 const usuarioSchema = z.object({
   nome: z.string().trim().min(1, 'O nome do usuário é obrigatório.'),
@@ -349,9 +351,9 @@ export default function NovaFuncionalidadePage() {
           <p className="eyebrow">Funcionalidade</p>
           <h1>{isEditMode ? 'Editar Funcionalidade' : 'Nova Funcionalidade'}</h1>
         </div>
-        <Link to={`/clientes/${clienteId}/aplicacoes/${aplicacaoId}`} className="secondary-button">
+        <ButtonLink to={`/clientes/${clienteId}/aplicacoes/${aplicacaoId}`} variant="secondary">
           Voltar
-        </Link>
+        </ButtonLink>
       </div>
 
       <FormCard onSubmit={form.handleSubmit(onSubmit)}>
@@ -389,14 +391,14 @@ export default function NovaFuncionalidadePage() {
                   placeholder="Ex: criar, editar"
                 />
               </label>
-              <button type="button" className="ghost-button" onClick={() => usuariosField.remove(index)}>
+              <Button type="button" className="ghost-button" onClick={() => usuariosField.remove(index)}>
                 Remover usuário
-              </button>
+              </Button>
             </div>
           ))}
-          <button type="button" className="secondary-button" onClick={() => usuariosField.append(emptyUsuario())}>
+          <Button type="button" className="secondary-button" onClick={() => usuariosField.append(emptyUsuario())}>
             Adicionar usuário
-          </button>
+          </Button>
         </div>
 
         <div className="panel-section">
@@ -414,14 +416,14 @@ export default function NovaFuncionalidadePage() {
                   placeholder="Ex: nome, email"
                 />
               </label>
-              <button type="button" className="ghost-button" onClick={() => entidadesField.remove(index)}>
+              <Button type="button" className="ghost-button" onClick={() => entidadesField.remove(index)}>
                 Remover entidade
-              </button>
+              </Button>
             </div>
           ))}
-          <button type="button" className="secondary-button" onClick={() => entidadesField.append(emptyEntidade())}>
+          <Button type="button" className="secondary-button" onClick={() => entidadesField.append(emptyEntidade())}>
             Adicionar entidade
-          </button>
+          </Button>
         </div>
 
         <div className="panel-section">
@@ -463,14 +465,13 @@ export default function NovaFuncionalidadePage() {
                     style={{ left: `${position.x}px`, top: `${position.y}px` }}
                     onClick={() => handleEntitySelection(field.id)}
                   >
-                    <button
+                    <Button
                       type="button"
                       className="relationship-node__handle"
                       aria-label="Mover entidade"
                       onPointerDown={(event) => handleNodePointerDown(event, field.id)}
-                    >
-                      ↕↔
-                    </button>
+                    >↕↔
+                    </Button>
                     <span className="relationship-node__label">{labelName}</span>
                   </div>
                 )
@@ -478,25 +479,25 @@ export default function NovaFuncionalidadePage() {
             </div>
 
             <div className="relationship-actions">
-              <button
+              <Button
                 type="button"
-                className="danger-button"
+                variant="danger"
                 disabled={!selectedRelationshipId}
                 onClick={deleteSelectedRelationship}
               >
                 Excluir
-              </button>
+              </Button>
             </div>
           </div>
         </div>
 
         <div className="button-row">
-          <button type="submit" className="primary-button" disabled={isLoading}>
+          <Button type="submit" className="primary-button" disabled={isLoading}>
             {isLoading ? 'Carregando...' : isEditMode ? 'Salvar alterações' : 'Salvar funcionalidade'}
-          </button>
-          <Link to={`/clientes/${clienteId}/aplicacoes/${aplicacaoId}`} className="ghost-button">
+          </Button>
+          <ButtonLink to={`/clientes/${clienteId}/aplicacoes/${aplicacaoId}`} variant="ghost">
             Cancelar
-          </Link>
+          </ButtonLink>
         </div>
       </FormCard>
     </section>

@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { CardEntity } from '@/components/cards/card-entity/CardEntity'
 import { DetailCard } from '@/components/cards'
 import { storageService } from '@/services/storageService'
 import type { Funcionalidade } from '@/types'
+import { ButtonLink } from '@/components/buttons'
 
 export default function VisualizarFuncionalidadePage() {
   const { clienteId, aplicacaoId, funcionalidadeId } = useParams()
@@ -44,12 +45,12 @@ export default function VisualizarFuncionalidadePage() {
           <h1>{funcionalidade.nome}</h1>
         </div>
         <div className="button-row">
-          <Link to={`/clientes/${clienteId}/aplicacoes/${aplicacaoId}/funcionalidades/${funcionalidadeId}/editar`} className="primary-button">
+          <ButtonLink to={`/clientes/${clienteId}/aplicacoes/${aplicacaoId}/funcionalidades/${funcionalidadeId}/editar`} variant="primary">
             Editar
-          </Link>
-          <Link to={`/clientes/${clienteId}/aplicacoes/${aplicacaoId}`} className="secondary-button">
+          </ButtonLink>
+          <ButtonLink to={`/clientes/${clienteId}/aplicacoes/${aplicacaoId}`} variant="secondary">
             Voltar
-          </Link>
+          </ButtonLink>
         </div>
       </div>
 

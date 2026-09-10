@@ -1,5 +1,4 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { Breadcrumbs } from './components/Breadcrumbs'
 import HomePage from './pages/HomePage'
 import HomeTutoriaisPage from './pages/tutoriais/HomeTutoriaisPage'
 import TutorialFuncionalidadeClientesPage from './pages/tutoriais/funcionalidade-clientes/TutorialFuncionalidadeClientesPage'
@@ -16,6 +15,7 @@ import FormulariosPage from './pages/configuracoes/FormulariosPage'
 import { Header } from './components/header/Header'
 import './App.css'
 import './styles/shared.css'
+import { Breadcrumbs } from './components/breadcrumbs/Breadcrumbs'
 
 function App() {
   return (

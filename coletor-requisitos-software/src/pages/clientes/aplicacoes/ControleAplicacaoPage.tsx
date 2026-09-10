@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
 import { z } from 'zod'
 import { Button, ButtonLink } from '@/components/buttons'
-import { useToast } from '@/components/ToastProvider'
+import { useToast } from '@/components/toast-provider/ToastProvider'
 import { FormCard } from '@/components/cards'
 import { storageService } from '@/services/storageService'
 

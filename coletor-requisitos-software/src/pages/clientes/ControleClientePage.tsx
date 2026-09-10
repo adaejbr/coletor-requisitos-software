@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
 import { z } from 'zod'
 import { Button, ButtonLink } from '@/components/buttons'
-import { useToast } from '@/components/ToastProvider'
+import { useToast } from '@/components/toast-provider/ToastProvider'
 import { FormCard } from '@/components/cards'
 import { storageService } from '@/services/storageService'
 import { CLIENTE_STATUS } from '@/types'
@@ -83,12 +83,15 @@ export default function NovoClientePage() {
         showToast('Cliente salvo com sucesso.')
       }
 
-      navigate('/')
+      const redirectPath = clienteId ? `/clientes/${clienteId}` : '/'
+      navigate(redirectPath, { replace: true })
     } catch (error) {
       console.error(error)
       showToast('Não foi possível salvar o cliente.')
     }
   }
+
+  const cancelarPath = clienteId ? `/clientes/${clienteId}` : '/'
 
   return (
     <section className="page">
@@ -97,7 +100,7 @@ export default function NovoClientePage() {
           <p className="eyebrow">Cliente</p>
           <h1>{isEditMode ? 'Editar Cliente' : 'Novo Cliente'}</h1>
         </div>
-        <ButtonLink to="/" variant="secondary">
+        <ButtonLink to={cancelarPath} variant="secondary">
           Voltar
         </ButtonLink>
       </div>
@@ -133,7 +136,7 @@ export default function NovoClientePage() {
           <Button type="submit" variant="primary" disabled={isLoading}>
             {isLoading ? 'Carregando...' : isEditMode ? 'Salvar alterações' : 'Salvar cliente'}
           </Button>
-          <ButtonLink to="/" variant="ghost">
+          <ButtonLink to={cancelarPath} variant="ghost">
             Cancelar
           </ButtonLink>
         </div>

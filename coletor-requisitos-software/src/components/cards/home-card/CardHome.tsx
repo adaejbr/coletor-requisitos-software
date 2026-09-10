@@ -1,5 +1,5 @@
-import { BasicCard } from './cards'
-import { ButtonLink } from './buttons'
+import { BasicCard } from '..'
+import { ButtonLink } from '../../buttons'
 import './CardHome.css'
 
 type CardHomeProps = {

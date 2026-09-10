@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useToast } from '@/components/ToastProvider'
+import { useToast } from '@/components/toast-provider/ToastProvider'
 import { Button, ButtonLink } from '@/components/buttons'
 import { BasicCard } from '@/components/cards'
 import { exportarAplicacaoJson, exportarAplicacaoPdf } from '@/services/exportService'

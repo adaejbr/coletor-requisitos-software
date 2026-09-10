@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 import { useEffect, useState } from 'react'
-import { useToast } from '@/components/ToastProvider'
+import { useToast } from '@/components/toast-provider/ToastProvider'
 import { Button, ButtonLink } from '@/components/buttons'
 import { BasicCard } from '@/components/cards'
 import { storageService } from '@/services/storageService'
